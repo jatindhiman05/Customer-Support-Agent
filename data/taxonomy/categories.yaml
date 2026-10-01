@@ -1,0 +1,589 @@
+# VoltNest Knowledge Base Categories
+# Version: 1.0.0
+# Last updated: 2026-01-15
+#
+# This file defines the structure of data/kb/. Each category maps to one
+# folder in the KB, with metadata used for:
+#   - Retrieval filtering (search only relevant folders per intent)
+#   - Tag-based filtering (narrow further by topic)
+#   - Ingestion metadata (attached to every chunk)
+#   - Analytics (track which categories get the most queries)
+#
+# Rules:
+#   - Every folder in data/kb/ must have an entry here
+#   - Every document belongs to exactly one category
+#   - Category names match folder names exactly
+
+version: "1.0.0"
+schema_version: 1
+last_updated: "2026-01-15"
+
+# =============================================================================
+# RETRIEVAL DEFAULTS
+# =============================================================================
+
+defaults:
+  # Number of chunks to retrieve per query
+  top_k: 3
+  # Minimum relevance score (0-1) for a chunk to be included
+  min_relevance_score: 0.25
+  # Whether to search across all categories if none specified
+  search_all_categories_if_unspecified: true
+  # Whether to include category metadata in every chunk
+  include_metadata: true
+  # Whether to boost results from the "expected" category (per intent)
+  apply_category_boost: true
+  category_boost_factor: 1.2
+
+# =============================================================================
+# CATEGORIES
+# =============================================================================
+
+categories:
+
+  # ---------------------------------------------------------------------------
+  # COMPANY
+  # ---------------------------------------------------------------------------
+
+  - name: company
+    folder: data/kb/company/
+    description: Identity, contact information, support hours, mission, and meta info about VoltNest
+    purpose: |
+      Answers questions about who VoltNest is, how to contact us, when
+      support is available, and what we stand for. Also contains
+      meta-questions about our AI support system.
+    audience: [customer, agent]
+    document_count: 5
+    documents:
+      - about.md
+      - contact.md
+      - support_hours.md
+      - mission_values.md
+      - faq_meta.md
+    tags:
+      primary: [identity, contact, hours, mission, meta]
+      topics: [company_info, support_channels, business_hours, values, ai_disclosure]
+    used_by_intents:
+      - general
+      - policy_question
+    priority: low
+    retrieval_weight: 1.0
+    typical_questions:
+      - "What is VoltNest?"
+      - "What's your phone number?"
+      - "What are your support hours?"
+      - "What's your mission?"
+      - "Are you a bot?"
+
+  # ---------------------------------------------------------------------------
+  # POLICIES
+  # ---------------------------------------------------------------------------
+
+  - name: policies
+    folder: data/kb/policies/
+    description: Legal, operational, and business policies — returns, shipping, warranty, cancellation, privacy, price match, terms of service
+    purpose: |
+      Defines the rules VoltNest operates by. Source of truth for any
+      "can I / what if / how long" question. Every support decision
+      traces back to a policy in this category.
+    audience: [customer, agent]
+    document_count: 7
+    documents:
+      - shipping_policy.md
+      - return_refund_policy.md
+      - warranty_policy.md
+      - cancellation_policy.md
+      - price_match_policy.md
+      - privacy_policy.md
+      - terms_of_service.md
+    tags:
+      primary: [policy, rules, legal, contract]
+      topics:
+        - shipping
+        - returns
+        - refunds
+        - warranty
+        - cancellation
+        - price_match
+        - privacy
+        - terms_of_service
+        - data_retention
+    used_by_intents:
+      - policy_question
+      - warranty_question
+      - order_status
+      - cancel_order
+      - delivery_issue
+    priority: high
+    retrieval_weight: 1.3
+    typical_questions:
+      - "What's your return policy?"
+      - "How long does shipping take?"
+      - "What's the warranty?"
+      - "Can I cancel my order?"
+      - "Do you price match?"
+      - "How long do you keep my data?"
+
+  # ---------------------------------------------------------------------------
+  # PRODUCTS
+  # ---------------------------------------------------------------------------
+
+  - name: products
+    folder: data/kb/products/
+    description: Product catalog — specs, compatibility, in-box contents, common questions, and warranty for all 6 VoltNest products
+    purpose: |
+      Everything a customer needs to know about a specific product
+      before buying, after buying, or while troubleshooting. One file
+      per SKU.
+    audience: [customer, agent]
+    document_count: 6
+    documents:
+      - wireless_earbuds.md
+      - bluetooth_speaker.md
+      - usb_c_charger.md
+      - power_bank.md
+      - phone_case.md
+      - smartwatch_band.md
+    tags:
+      primary: [product, catalog, specs, sku]
+      topics:
+        - audio
+        - power
+        - protection
+        - wearables
+        - specifications
+        - compatibility
+        - in_the_box
+        - product_faq
+    used_by_intents:
+      - product_question
+      - warranty_question
+      - tech_support
+    priority: normal
+    retrieval_weight: 1.0
+    typical_questions:
+      - "Does the VoltBuds Pro have ANC?"
+      - "What's the battery life?"
+      - "Is the VoltBank waterproof?"
+      - "Does the VoltShield fit iPhone 15?"
+      - "What comes in the box?"
+
+  # ---------------------------------------------------------------------------
+  # FAQS
+  # ---------------------------------------------------------------------------
+
+  - name: faqs
+    folder: data/kb/faqs/
+    description: Frequently asked questions organized by topic — account, payment, general, international, promo/gift cards, loyalty
+    purpose: |
+      Pre-written answers to common questions. Covers topics that
+      span multiple policies or need a direct Q&A format. Optimized
+      for natural-language user queries.
+    audience: [customer]
+    document_count: 6
+    documents:
+      - account_faq.md
+      - payment_faq.md
+      - general_faq.md
+      - international_faq.md
+      - promo_giftcard_faq.md
+      - loyalty_faq.md
+    tags:
+      primary: [faq, common_questions, how_to]
+      topics:
+        - account_questions
+        - payment_questions
+        - general_questions
+        - international_questions
+        - promo_questions
+        - loyalty_questions
+    used_by_intents:
+      - general
+      - payment_question
+      - account_help
+      - policy_question
+    priority: normal
+    retrieval_weight: 1.0
+    typical_questions:
+      - "What payment methods do you accept?"
+      - "How do I apply a promo code?"
+      - "How do I reach a human?"
+      - "Do you ship to Germany?"
+      - "How do I earn loyalty points?"
+
+  # ---------------------------------------------------------------------------
+  # TROUBLESHOOTING
+  # ---------------------------------------------------------------------------
+
+  - name: troubleshooting
+    folder: data/kb/troubleshooting/
+    description: Diagnostic guides for technical problems — Bluetooth, charging, audio, app, login, payment
+    purpose: |
+      Step-by-step problem resolution. Used when a customer reports
+      something is broken, not working, or malfunctioning. Structured
+      as diagnostic funnels.
+    audience: [customer, agent]
+    document_count: 6
+    documents:
+      - app_not_loading.md
+      - login_issues.md
+      - bluetooth_pairing.md
+      - payment_failures.md
+      - device_not_charging.md
+      - audio_quality_issues.md
+    tags:
+      primary: [troubleshooting, diagnostic, how_to_fix]
+      topics:
+        - bluetooth_issues
+        - charging_issues
+        - audio_issues
+        - app_issues
+        - login_issues
+        - payment_issues
+        - device_malfunction
+    used_by_intents:
+      - tech_support
+      - payment_issue
+      - account_help
+    priority: normal
+    retrieval_weight: 1.0
+    typical_questions:
+      - "My earbuds won't pair"
+      - "The speaker has static"
+      - "The app keeps crashing"
+      - "I can't log in"
+      - "My card was declined"
+
+  # ---------------------------------------------------------------------------
+  # ORDER MANAGEMENT
+  # ---------------------------------------------------------------------------
+
+  - name: order_management
+    folder: data/kb/order_management/
+    description: Order lifecycle processes — status, cancellation, tracking, modification, and delivery issues
+    purpose: |
+      Process guides for anything related to a placed order. Used
+      when a customer wants to know, change, cancel, or fix something
+      about an order in progress.
+    audience: [customer, agent]
+    document_count: 5
+    documents:
+      - order_status_guide.md
+      - cancel_order_guide.md
+      - track_shipment_guide.md
+      - modify_order_guide.md
+      - delivery_issues.md
+    tags:
+      primary: [order, logistics, shipping_status]
+      topics:
+        - order_status
+        - order_cancellation
+        - order_modification
+        - shipment_tracking
+        - delivery_problems
+        - lost_packages
+        - damaged_packages
+    used_by_intents:
+      - order_status
+      - cancel_order
+      - modify_order
+      - delivery_issue
+    priority: high
+    retrieval_weight: 1.3
+    typical_questions:
+      - "Where's my order?"
+      - "How do I cancel?"
+      - "Tracking hasn't updated"
+      - "Change my shipping address"
+      - "Package marked delivered but not here"
+
+  # ---------------------------------------------------------------------------
+  # ACCOUNT
+  # ---------------------------------------------------------------------------
+
+  - name: account
+    folder: data/kb/account/
+    description: Account operations — signup, password reset, 2FA, account deletion, settings management
+    purpose: |
+      Step-by-step guides for managing a VoltNest account. Used when
+      a customer needs to create, secure, modify, or delete their
+      account.
+    audience: [customer, agent]
+    document_count: 5
+    documents:
+      - create_account.md
+      - reset_password.md
+      - enable_2fa.md
+      - delete_account.md
+      - manage_account_settings.md
+    tags:
+      primary: [account, user_settings, security]
+      topics:
+        - account_creation
+        - password_reset
+        - two_factor_auth
+        - account_deletion
+        - account_settings
+        - email_change
+        - session_management
+    used_by_intents:
+      - account_help
+    priority: high
+    retrieval_weight: 1.2
+    typical_questions:
+      - "How do I create an account?"
+      - "I forgot my password"
+      - "How do I enable 2FA?"
+      - "Delete my account"
+      - "Change my email"
+
+  # ---------------------------------------------------------------------------
+  # ESCALATION
+  # ---------------------------------------------------------------------------
+
+  - name: escalation
+    folder: data/kb/escalation/
+    description: Internal playbooks for escalating and handling sensitive topics — legal, safety, compromise, abuse
+    purpose: |
+      Defines when and how the AI should hand off to a human, and how
+      to handle sensitive cases. Agent-facing only — not directly
+      served to customers.
+    audience: [agent]
+    document_count: 3
+    documents:
+      - escalation_criteria.md
+      - escalation_playbook.md
+      - sensitive_topics.md
+    tags:
+      primary: [escalation, internal, agent_playbook]
+      topics:
+        - escalation_triggers
+        - tier_1_to_tier_2
+        - legal_handling
+        - safety_handling
+        - sensitive_topics
+        - human_handoff
+    used_by_intents:
+      - escalation
+      - sensitive_legal
+      - sensitive_safety
+    priority: critical
+    retrieval_weight: 1.5
+    agent_only: true
+    typical_questions:
+      - "Talk to a human"
+      - "I want to sue"
+      - "My charger caught fire"
+
+  # ---------------------------------------------------------------------------
+  # GLOSSARY
+  # ---------------------------------------------------------------------------
+
+  - name: glossary
+    folder: data/kb/glossary/
+    description: Term definitions — shipping terms, payment terms, product/technical terms
+    purpose: |
+      Definitions of terms used across the KB. Consulted when a
+      customer asks "what does X mean?" or when an answer requires
+      a precise definition.
+    audience: [customer, agent]
+    document_count: 3
+    documents:
+      - shipping_terms.md
+      - payment_terms.md
+      - product_terms.md
+    tags:
+      primary: [glossary, definitions, reference]
+      topics:
+        - shipping_glossary
+        - payment_glossary
+        - product_glossary
+        - technical_terms
+    used_by_intents:
+      - product_question
+      - policy_question
+      - general
+    priority: low
+    retrieval_weight: 0.9
+    typical_questions:
+      - "What does IP67 mean?"
+      - "What's a chargeback?"
+      - "What does 'in transit' mean?"
+      - "What's a restocking fee?"
+
+# =============================================================================
+# INTENT → CATEGORY MAPPING
+# =============================================================================
+# When an intent is detected, search these categories (in order of priority).
+# This is the key to fast + accurate retrieval.
+
+intent_category_map:
+  order_status:
+    primary: [order_management]
+    secondary: [policies]
+    boost: order_management
+
+  cancel_order:
+    primary: [order_management, policies]
+    secondary: [faqs]
+    boost: policies
+
+  modify_order:
+    primary: [order_management, policies]
+    secondary: [products]
+    boost: order_management
+
+  delivery_issue:
+    primary: [order_management, policies]
+    secondary: [faqs]
+    boost: order_management
+
+  product_question:
+    primary: [products]
+    secondary: [glossary, faqs]
+    boost: products
+
+  warranty_question:
+    primary: [policies]
+    secondary: [products, faqs]
+    boost: policies
+
+  tech_support:
+    primary: [troubleshooting]
+    secondary: [products]
+    boost: troubleshooting
+
+  payment_question:
+    primary: [faqs, policies]
+    secondary: [glossary]
+    boost: faqs
+
+  payment_issue:
+    primary: [troubleshooting, faqs]
+    secondary: [policies]
+    boost: troubleshooting
+
+  account_help:
+    primary: [account, faqs]
+    secondary: [troubleshooting]
+    boost: account
+
+  policy_question:
+    primary: [policies, faqs]
+    secondary: [glossary]
+    boost: policies
+
+  general:
+    primary: [company, faqs]
+    secondary: [policies]
+    boost: null
+
+  escalation:
+    primary: [escalation]
+    secondary: [company]
+    boost: escalation
+
+  sensitive_legal:
+    primary: [escalation]
+    secondary: []
+    boost: escalation
+
+  sensitive_safety:
+    primary: [escalation]
+    secondary: [products]
+    boost: escalation
+
+  out_of_scope:
+    primary: []
+    secondary: []
+    boost: null
+
+# =============================================================================
+# CATEGORY STATISTICS (for analytics / dashboards)
+# =============================================================================
+
+statistics:
+  total_documents: 46
+  total_categories: 9
+  avg_documents_per_category: 5.1
+  largest_category: policies  # 7 documents
+  smallest_category: glossary  # 3 documents
+  agent_only_categories: [escalation]
+  critical_priority_categories: [escalation]
+  high_priority_categories: [policies, order_management, account]
+  normal_priority_categories: [products, faqs, troubleshooting]
+  low_priority_categories: [company, glossary]
+
+# =============================================================================
+# RETRIEVAL STRATEGY
+# =============================================================================
+
+retrieval_strategy:
+  # Step 1: Determine intent
+  step_1_intent_detection: true
+
+  # Step 2: Look up categories from intent_category_map
+  step_2_category_lookup: true
+
+  # Step 3: Search within primary categories first
+  step_3_primary_search:
+    top_k: 5
+    threshold: 0.25
+
+  # Step 4: If insufficient results, expand to secondary categories
+  step_4_secondary_search:
+    trigger: "top_result_score < 0.4"
+    top_k: 3
+    threshold: 0.2
+
+  # Step 5: If still insufficient, search all categories
+  step_5_fallback_search:
+    trigger: "no_results_found"
+    top_k: 3
+    threshold: 0.15
+
+  # Step 6: Apply category boost to expected category
+  step_6_boost:
+    apply: true
+    factor: 1.2
+
+  # Step 7: Deduplicate results by source file
+  step_7_dedupe:
+    deduplicate: true
+    keep_highest_score_per_source: true
+
+  # Step 8: Return top-k after boost + dedupe
+  step_8_return:
+    final_top_k: 3
+
+# =============================================================================
+# ANALYTICS & OBSERVABILITY
+# =============================================================================
+
+analytics:
+  track_per_category:
+    - query_count
+    - avg_relevance_score
+    - retrieval_latency_ms
+    - no_result_rate
+    - escalation_rate
+  track_globally:
+    - total_queries
+    - intent_distribution
+    - category_distribution
+    - fallback_search_rate
+    - avg_chunks_returned
+
+# =============================================================================
+# MAINTENANCE
+# =============================================================================
+
+maintenance:
+  owner: knowledge_team
+  review_cycle_days: 90
+  next_review_due: "2026-04-15"
+  change_log:
+    - date: "2026-01-15"
+      version: "1.0.0"
+      changes: "Initial taxonomy definition with 9 categories"
+  contact: kb-owners@voltnest.com

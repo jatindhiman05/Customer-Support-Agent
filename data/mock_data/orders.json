@@ -1,0 +1,623 @@
+[
+  {
+    "order_id": "ORD-100001",
+    "user_id": "U-5001",
+    "user_email": "jane.doe@example.com",
+    "status": "delivered",
+    "items": [
+      {
+        "sku": "VBP-2024-BLK",
+        "name": "VoltBuds Pro Wireless Earbuds",
+        "quantity": 1,
+        "unit_price": 79.99
+      },
+      {
+        "sku": "VSC-2024-CLR",
+        "name": "VoltShield Phone Case",
+        "quantity": 1,
+        "unit_price": 24.99
+      }
+    ],
+    "subtotal": 104.98,
+    "shipping_cost": 0.00,
+    "tax": 8.66,
+    "discount": 0.00,
+    "total": 113.64,
+    "currency": "USD",
+    "payment_method": "visa_ending_4242",
+    "shipping_address": {
+      "name": "Jane Doe",
+      "line1": "1400 Rio Grande St",
+      "line2": "Apt 305",
+      "city": "Austin",
+      "state": "TX",
+      "postal_code": "78701",
+      "country": "US"
+    },
+    "shipping_method": "standard",
+    "tracking_number": "1Z999AA10123456784",
+    "carrier": "UPS",
+    "created_at": "2026-01-05T14:30:00Z",
+    "shipped_at": "2026-01-06T09:15:00Z",
+    "delivered_at": "2026-01-10T11:02:00Z",
+    "cancelled_at": null,
+    "refunded_at": null,
+    "notes": null
+  },
+  {
+    "order_id": "ORD-100002",
+    "user_id": "U-5001",
+    "user_email": "jane.doe@example.com",
+    "status": "in_transit",
+    "items": [
+      {
+        "sku": "VC65-WHT",
+        "name": "VoltCharge 65W USB-C Charger",
+        "quantity": 1,
+        "unit_price": 39.99
+      }
+    ],
+    "subtotal": 39.99,
+    "shipping_cost": 0.00,
+    "tax": 3.30,
+    "discount": 0.00,
+    "total": 43.29,
+    "currency": "USD",
+    "payment_method": "visa_ending_4242",
+    "shipping_address": {
+      "name": "Jane Doe",
+      "line1": "1400 Rio Grande St",
+      "line2": "Apt 305",
+      "city": "Austin",
+      "state": "TX",
+      "postal_code": "78701",
+      "country": "US"
+    },
+    "shipping_method": "standard",
+    "tracking_number": "1Z999AA10123456785",
+    "carrier": "UPS",
+    "created_at": "2026-01-12T09:00:00Z",
+    "shipped_at": "2026-01-13T08:20:00Z",
+    "delivered_at": null,
+    "cancelled_at": null,
+    "refunded_at": null,
+    "notes": null
+  },
+  {
+    "order_id": "ORD-100003",
+    "user_id": "U-5002",
+    "user_email": "marcus.rodriguez@example.com",
+    "status": "delivered",
+    "items": [
+      {
+        "sku": "VBM-2024-BLK",
+        "name": "VoltBoom Bluetooth Speaker",
+        "quantity": 2,
+        "unit_price": 59.99
+      }
+    ],
+    "subtotal": 119.98,
+    "shipping_cost": 0.00,
+    "tax": 9.90,
+    "discount": 12.00,
+    "total": 117.88,
+    "currency": "USD",
+    "payment_method": "paypal",
+    "shipping_address": {
+      "name": "Marcus Rodriguez",
+      "line1": "4821 Lakeshore Dr",
+      "line2": null,
+      "city": "Chicago",
+      "state": "IL",
+      "postal_code": "60615",
+      "country": "US"
+    },
+    "shipping_method": "express",
+    "tracking_number": "1Z999AA10123456786",
+    "carrier": "UPS",
+    "created_at": "2025-12-18T10:15:00Z",
+    "shipped_at": "2025-12-19T14:30:00Z",
+    "delivered_at": "2025-12-22T16:45:00Z",
+    "cancelled_at": null,
+    "refunded_at": null,
+    "notes": "Applied promo code WELCOME10 ($12 off)"
+  },
+  {
+    "order_id": "ORD-100004",
+    "user_id": "U-5003",
+    "user_email": "priya.patel@example.com",
+    "status": "delivered",
+    "items": [
+      {
+        "sku": "VB20-BLK",
+        "name": "VoltBank 20K Power Bank",
+        "quantity": 1,
+        "unit_price": 49.99
+      }
+    ],
+    "subtotal": 49.99,
+    "shipping_cost": 0.00,
+    "tax": 4.12,
+    "discount": 0.00,
+    "total": 54.11,
+    "currency": "USD",
+    "payment_method": "klarna",
+    "shipping_address": {
+      "name": "Priya Patel",
+      "line1": "88 Beacon St",
+      "line2": null,
+      "city": "Boston",
+      "state": "MA",
+      "postal_code": "02108",
+      "country": "US"
+    },
+    "shipping_method": "standard",
+    "tracking_number": "9400111899223197428490",
+    "carrier": "USPS",
+    "created_at": "2026-01-08T13:45:00Z",
+    "shipped_at": "2026-01-09T07:30:00Z",
+    "delivered_at": "2026-01-14T10:20:00Z",
+    "cancelled_at": null,
+    "refunded_at": null,
+    "notes": null
+  },
+  {
+    "order_id": "ORD-100005",
+    "user_id": "U-5004",
+    "user_email": "liam.oconnor@example.com",
+    "status": "processing",
+    "items": [
+      {
+        "sku": "VBP-2024-BLK",
+        "name": "VoltBuds Pro Wireless Earbuds",
+        "quantity": 1,
+        "unit_price": 79.99
+      },
+      {
+        "sku": "VC65-WHT",
+        "name": "VoltCharge 65W USB-C Charger",
+        "quantity": 1,
+        "unit_price": 39.99
+      },
+      {
+        "sku": "VFB-2024-BLK",
+        "name": "VoltFit Smartwatch Band",
+        "quantity": 2,
+        "unit_price": 19.99
+      }
+    ],
+    "subtotal": 159.96,
+    "shipping_cost": 0.00,
+    "tax": 13.20,
+    "discount": 0.00,
+    "total": 173.16,
+    "currency": "USD",
+    "payment_method": "amex_ending_1005",
+    "shipping_address": {
+      "name": "Liam O'Connor",
+      "line1": "742 Evergreen Terrace",
+      "line2": null,
+      "city": "Portland",
+      "state": "OR",
+      "postal_code": "97201",
+      "country": "US"
+    },
+    "shipping_method": "express",
+    "tracking_number": null,
+    "carrier": null,
+    "created_at": "2026-01-14T16:00:00Z",
+    "shipped_at": null,
+    "delivered_at": null,
+    "cancelled_at": null,
+    "refunded_at": null,
+    "notes": null
+  },
+  {
+    "order_id": "ORD-100006",
+    "user_id": "U-5005",
+    "user_email": "emma.schmidt@example.de",
+    "status": "shipped",
+    "items": [
+      {
+        "sku": "VBM-2024-BLK",
+        "name": "VoltBoom Bluetooth Speaker",
+        "quantity": 1,
+        "unit_price": 59.99
+      },
+      {
+        "sku": "VSC-2024-CLR",
+        "name": "VoltShield Phone Case",
+        "quantity": 1,
+        "unit_price": 24.99
+      }
+    ],
+    "subtotal": 84.98,
+    "shipping_cost": 19.99,
+    "tax": 0.00,
+    "discount": 0.00,
+    "total": 104.97,
+    "currency": "USD",
+    "payment_method": "visa_ending_8888",
+    "shipping_address": {
+      "name": "Emma Schmidt",
+      "line1": "Kurfürstendamm 194",
+      "line2": null,
+      "city": "Berlin",
+      "state": "Berlin",
+      "postal_code": "10707",
+      "country": "DE"
+    },
+    "shipping_method": "international",
+    "tracking_number": "JD0002100212000001",
+    "carrier": "DHL",
+    "created_at": "2026-01-10T11:30:00Z",
+    "shipped_at": "2026-01-11T09:00:00Z",
+    "delivered_at": null,
+    "cancelled_at": null,
+    "refunded_at": null,
+    "notes": "International order — customer responsible for EU customs"
+  },
+  {
+    "order_id": "ORD-100007",
+    "user_id": "U-5006",
+    "user_email": "sarah.johnson@example.ca",
+    "status": "delivered",
+    "items": [
+      {
+        "sku": "VFB-2024-BLK",
+        "name": "VoltFit Smartwatch Band",
+        "quantity": 1,
+        "unit_price": 19.99
+      }
+    ],
+    "subtotal": 19.99,
+    "shipping_cost": 14.99,
+    "tax": 0.00,
+    "discount": 0.00,
+    "total": 34.98,
+    "currency": "USD",
+    "payment_method": "mastercard_ending_5566",
+    "shipping_address": {
+      "name": "Sarah Johnson",
+      "line1": "88 Queen St W",
+      "line2": "Unit 1204",
+      "city": "Toronto",
+      "state": "ON",
+      "postal_code": "M5H 2M5",
+      "country": "CA"
+    },
+    "shipping_method": "international",
+    "tracking_number": "123456789012",
+    "carrier": "FedEx",
+    "created_at": "2025-12-28T15:45:00Z",
+    "shipped_at": "2025-12-29T10:00:00Z",
+    "delivered_at": "2026-01-08T14:20:00Z",
+    "cancelled_at": null,
+    "refunded_at": null,
+    "notes": "International order to Canada"
+  },
+  {
+    "order_id": "ORD-100008",
+    "user_id": "U-5002",
+    "user_email": "marcus.rodriguez@example.com",
+    "status": "cancelled",
+    "items": [
+      {
+        "sku": "VB20-BLK",
+        "name": "VoltBank 20K Power Bank",
+        "quantity": 1,
+        "unit_price": 49.99
+      }
+    ],
+    "subtotal": 49.99,
+    "shipping_cost": 0.00,
+    "tax": 4.12,
+    "discount": 0.00,
+    "total": 54.11,
+    "currency": "USD",
+    "payment_method": "paypal",
+    "shipping_address": {
+      "name": "Marcus Rodriguez",
+      "line1": "4821 Lakeshore Dr",
+      "line2": null,
+      "city": "Chicago",
+      "state": "IL",
+      "postal_code": "60615",
+      "country": "US"
+    },
+    "shipping_method": "standard",
+    "tracking_number": null,
+    "carrier": null,
+    "created_at": "2026-01-11T20:15:00Z",
+    "shipped_at": null,
+    "delivered_at": null,
+    "cancelled_at": "2026-01-11T20:45:00Z",
+    "refunded_at": "2026-01-12T09:00:00Z",
+    "notes": "Customer cancelled within 30 minutes — full refund issued"
+  },
+  {
+    "order_id": "ORD-100009",
+    "user_id": "U-5007",
+    "user_email": "kenji.tanaka@example.jp",
+    "status": "in_transit",
+    "items": [
+      {
+        "sku": "VBP-2024-BLK",
+        "name": "VoltBuds Pro Wireless Earbuds",
+        "quantity": 1,
+        "unit_price": 79.99
+      }
+    ],
+    "subtotal": 79.99,
+    "shipping_cost": 24.99,
+    "tax": 0.00,
+    "discount": 0.00,
+    "total": 104.98,
+    "currency": "USD",
+    "payment_method": "visa_ending_3344",
+    "shipping_address": {
+      "name": "Kenji Tanaka",
+      "line1": "1-2-3 Shibuya",
+      "line2": "Shibuya-ku",
+      "city": "Tokyo",
+      "state": "Tokyo",
+      "postal_code": "150-0002",
+      "country": "JP"
+    },
+    "shipping_method": "international",
+    "tracking_number": "JD0002100212000002",
+    "carrier": "DHL",
+    "created_at": "2026-01-11T08:00:00Z",
+    "shipped_at": "2026-01-12T10:30:00Z",
+    "delivered_at": null,
+    "cancelled_at": null,
+    "refunded_at": null,
+    "notes": "International order — Japan"
+  },
+  {
+    "order_id": "ORD-100010",
+    "user_id": "U-5003",
+    "user_email": "priya.patel@example.com",
+    "status": "delivered",
+    "items": [
+      {
+        "sku": "VBP-2024-BLK",
+        "name": "VoltBuds Pro Wireless Earbuds",
+        "quantity": 1,
+        "unit_price": 79.99
+      }
+    ],
+    "subtotal": 79.99,
+    "shipping_cost": 0.00,
+    "tax": 6.60,
+    "discount": 0.00,
+    "total": 86.59,
+    "currency": "USD",
+    "payment_method": "klarna",
+    "shipping_address": {
+      "name": "Priya Patel",
+      "line1": "88 Beacon St",
+      "line2": null,
+      "city": "Boston",
+      "state": "MA",
+      "postal_code": "02108",
+      "country": "US"
+    },
+    "shipping_method": "standard",
+    "tracking_number": "9400111899223197428491",
+    "carrier": "USPS",
+    "created_at": "2025-12-01T10:00:00Z",
+    "shipped_at": "2025-12-02T08:00:00Z",
+    "delivered_at": "2025-12-06T16:30:00Z",
+    "cancelled_at": null,
+    "refunded_at": null,
+    "notes": null
+  },
+  {
+    "order_id": "ORD-100011",
+    "user_id": "U-5008",
+    "user_email": "olivia.brown@example.com.au",
+    "status": "delivered",
+    "items": [
+      {
+        "sku": "VBM-2024-BLK",
+        "name": "VoltBoom Bluetooth Speaker",
+        "quantity": 1,
+        "unit_price": 59.99
+      }
+    ],
+    "subtotal": 59.99,
+    "shipping_cost": 24.99,
+    "tax": 0.00,
+    "discount": 0.00,
+    "total": 84.98,
+    "currency": "USD",
+    "payment_method": "apple_pay",
+    "shipping_address": {
+      "name": "Olivia Brown",
+      "line1": "123 Collins St",
+      "line2": "Level 5",
+      "city": "Melbourne",
+      "state": "VIC",
+      "postal_code": "3000",
+      "country": "AU"
+    },
+    "shipping_method": "international",
+    "tracking_number": "JD0002100212000003",
+    "carrier": "DHL",
+    "created_at": "2025-12-20T14:20:00Z",
+    "shipped_at": "2025-12-21T09:45:00Z",
+    "delivered_at": "2026-01-04T13:15:00Z",
+    "cancelled_at": null,
+    "refunded_at": null,
+    "notes": "International order — Australia"
+  },
+  {
+    "order_id": "ORD-100012",
+    "user_id": "U-5004",
+    "user_email": "liam.oconnor@example.com",
+    "status": "refunded",
+    "items": [
+      {
+        "sku": "VBM-2024-BLK",
+        "name": "VoltBoom Bluetooth Speaker",
+        "quantity": 1,
+        "unit_price": 59.99
+      }
+    ],
+    "subtotal": 59.99,
+    "shipping_cost": 0.00,
+    "tax": 4.95,
+    "discount": 0.00,
+    "total": 64.94,
+    "currency": "USD",
+    "payment_method": "amex_ending_1005",
+    "shipping_address": {
+      "name": "Liam O'Connor",
+      "line1": "742 Evergreen Terrace",
+      "line2": null,
+      "city": "Portland",
+      "state": "OR",
+      "postal_code": "97201",
+      "country": "US"
+    },
+    "shipping_method": "standard",
+    "tracking_number": "9400111899223197428492",
+    "carrier": "USPS",
+    "created_at": "2025-11-15T12:00:00Z",
+    "shipped_at": "2025-11-16T08:00:00Z",
+    "delivered_at": "2025-11-20T11:45:00Z",
+    "cancelled_at": null,
+    "refunded_at": "2025-12-02T10:00:00Z",
+    "notes": "Customer returned — speaker had Bluetooth pairing issue. Full refund issued per return policy."
+  },
+  {
+    "order_id": "ORD-100013",
+    "user_id": "U-5005",
+    "user_email": "emma.schmidt@example.de",
+    "status": "processing",
+    "items": [
+      {
+        "sku": "VFB-2024-BLK",
+        "name": "VoltFit Smartwatch Band",
+        "quantity": 1,
+        "unit_price": 19.99
+      },
+      {
+        "sku": "VSC-2024-CLR",
+        "name": "VoltShield Phone Case",
+        "quantity": 1,
+        "unit_price": 24.99
+      }
+    ],
+    "subtotal": 44.98,
+    "shipping_cost": 19.99,
+    "tax": 0.00,
+    "discount": 0.00,
+    "total": 64.97,
+    "currency": "USD",
+    "payment_method": "visa_ending_8888",
+    "shipping_address": {
+      "name": "Emma Schmidt",
+      "line1": "Kurfürstendamm 194",
+      "line2": null,
+      "city": "Berlin",
+      "state": "Berlin",
+      "postal_code": "10707",
+      "country": "DE"
+    },
+    "shipping_method": "international",
+    "tracking_number": null,
+    "carrier": null,
+    "created_at": "2026-01-14T09:30:00Z",
+    "shipped_at": null,
+    "delivered_at": null,
+    "cancelled_at": null,
+    "refunded_at": null,
+    "notes": null
+  },
+  {
+    "order_id": "ORD-100014",
+    "user_id": "U-5007",
+    "user_email": "kenji.tanaka@example.jp",
+    "status": "delivered",
+    "items": [
+      {
+        "sku": "VC65-WHT",
+        "name": "VoltCharge 65W USB-C Charger",
+        "quantity": 1,
+        "unit_price": 39.99
+      },
+      {
+        "sku": "VBP-2024-BLK",
+        "name": "VoltBuds Pro Wireless Earbuds",
+        "quantity": 1,
+        "unit_price": 79.99
+      }
+    ],
+    "subtotal": 119.98,
+    "shipping_cost": 24.99,
+    "tax": 0.00,
+    "discount": 20.00,
+    "total": 124.97,
+    "currency": "USD",
+    "payment_method": "visa_ending_3344",
+    "shipping_address": {
+      "name": "Kenji Tanaka",
+      "line1": "1-2-3 Shibuya",
+      "line2": "Shibuya-ku",
+      "city": "Tokyo",
+      "state": "Tokyo",
+      "postal_code": "150-0002",
+      "country": "JP"
+    },
+    "shipping_method": "international",
+    "tracking_number": "JD0002100212000004",
+    "carrier": "DHL",
+    "created_at": "2025-12-10T07:45:00Z",
+    "shipped_at": "2025-12-11T09:15:00Z",
+    "delivered_at": "2025-12-22T15:30:00Z",
+    "cancelled_at": null,
+    "refunded_at": null,
+    "notes": "Applied loyalty redemption — 2,000 points ($20 off)"
+  },
+  {
+    "order_id": "ORD-100015",
+    "user_id": "U-5001",
+    "user_email": "jane.doe@example.com",
+    "status": "processing",
+    "items": [
+      {
+        "sku": "VBM-2024-BLK",
+        "name": "VoltBoom Bluetooth Speaker",
+        "quantity": 1,
+        "unit_price": 59.99
+      }
+    ],
+    "subtotal": 59.99,
+    "shipping_cost": 0.00,
+    "tax": 4.95,
+    "discount": 0.00,
+    "total": 64.94,
+    "currency": "USD",
+    "payment_method": "visa_ending_4242",
+    "shipping_address": {
+      "name": "Jane Doe",
+      "line1": "1400 Rio Grande St",
+      "line2": "Apt 305",
+      "city": "Austin",
+      "state": "TX",
+      "postal_code": "78701",
+      "country": "US"
+    },
+    "shipping_method": "standard",
+    "tracking_number": null,
+    "carrier": null,
+    "created_at": "2026-01-15T08:45:00Z",
+    "shipped_at": null,
+    "delivered_at": null,
+    "cancelled_at": null,
+    "refunded_at": null,
+    "notes": null
+  }
+]

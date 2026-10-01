@@ -1,0 +1,750 @@
+# VoltNest Knowledge Base Tags
+# Version: 1.0.0
+# Last updated: 2026-01-15
+#
+# This file defines the controlled vocabulary of tags used across the KB.
+# Tags are attached to document chunks during ingestion and used for
+# fine-grained retrieval filtering.
+#
+# Rules:
+#   - Every tag has a canonical form (lowercase, underscores)
+#   - Aliases map user/synonym terms to canonical tags
+#   - Do NOT introduce synonyms — use aliases instead
+#   - Every document should have 3-8 tags
+#   - Every tag must be used by at least one document
+#   - New tags require approval (see governance section at bottom)
+
+version: "1.0.0"
+schema_version: 1
+last_updated: "2026-01-15"
+
+# =============================================================================
+# TAG CATEGORIES
+# =============================================================================
+# Tags are grouped into domains for organization. Domains are NOT used for
+# filtering — only for human navigation.
+
+domains:
+  - name: order
+    description: Tags related to orders, shipping, and delivery
+  - name: payment
+    description: Tags related to payment, refunds, and billing
+  - name: product
+    description: Tags related to products and product features
+  - name: account
+    description: Tags related to user accounts and security
+  - name: policy
+    description: Tags related to policies and rules
+  - name: support
+    description: Tags related to support operations
+  - name: company
+    description: Tags related to VoltNest the company
+  - name: tech
+    description: Tags related to technical concepts
+
+# =============================================================================
+# TAGS
+# =============================================================================
+# Each tag has:
+#   - name: canonical form (used in metadata)
+#   - display: how it's shown in UI
+#   - domain: which domain it belongs to
+#   - description: what it means
+#   - aliases: alternate forms users might search for (mapped to canonical)
+#   - used_in_categories: which KB categories apply this tag
+
+tags:
+
+  # ---------------------------------------------------------------------------
+  # ORDER DOMAIN
+  # ---------------------------------------------------------------------------
+
+  - name: order_status
+    display: "Order Status"
+    domain: order
+    description: Progress of an order through fulfillment (processing, shipped, delivered, etc.)
+    aliases: [order_progress, order_state, status]
+    used_in_categories: [order_management, faqs]
+
+  - name: order_cancellation
+    display: "Order Cancellation"
+    domain: order
+    description: Cancelling an order before it ships
+    aliases: [cancel_order, cancellation, cancel]
+    used_in_categories: [order_management, policies]
+
+  - name: order_modification
+    display: "Order Modification"
+    domain: order
+    description: Changing an order after placing it (address, items, shipping)
+    aliases: [modify_order, change_order, edit_order]
+    used_in_categories: [order_management]
+
+  - name: shipment_tracking
+    display: "Shipment Tracking"
+    domain: order
+    description: Tracking numbers, carrier updates, tracking statuses
+    aliases: [tracking, track_shipment, tracking_number]
+    used_in_categories: [order_management]
+
+  - name: shipping
+    display: "Shipping"
+    domain: order
+    description: Shipping methods, rates, delivery times
+    aliases: [delivery, ship]
+    used_in_categories: [policies, faqs, products]
+
+  - name: delivery_issue
+    display: "Delivery Issues"
+    domain: order
+    description: Lost, delayed, damaged, or misdelivered packages
+    aliases: [lost_package, missing_package, delivery_problem, damaged_package]
+    used_in_categories: [order_management, troubleshooting]
+
+  - name: shipping_cost
+    display: "Shipping Cost"
+    domain: order
+    description: Shipping fees, free shipping threshold
+    aliases: [shipping_fee, shipping_price]
+    used_in_categories: [policies]
+
+  - name: delivery_time
+    display: "Delivery Time"
+    domain: order
+    description: How long shipping takes
+    aliases: [shipping_time, eta, delivery_estimate]
+    used_in_categories: [policies, order_management]
+
+  - name: carrier
+    display: "Carrier"
+    domain: order
+    description: Shipping carriers (UPS, USPS, FedEx, DHL)
+    aliases: [courier, shipper, ups, usps, fedex, dhl]
+    used_in_categories: [order_management, policies]
+
+  - name: international_shipping
+    display: "International Shipping"
+    domain: order
+    description: Shipping outside the US
+    aliases: [overseas, foreign_shipping, cross_border]
+    used_in_categories: [policies, faqs]
+
+  - name: customs
+    display: "Customs"
+    domain: order
+    description: Customs clearance, duties, VAT, import taxes
+    aliases: [duties, import_tax, vat, customs_fee]
+    used_in_categories: [faqs, policies]
+
+  - name: damaged_package
+    display: "Damaged Package"
+    domain: order
+    description: Packages that arrive damaged
+    aliases: [damaged_item, broken_package]
+    used_in_categories: [order_management, policies]
+
+  # ---------------------------------------------------------------------------
+  # PAYMENT DOMAIN
+  # ---------------------------------------------------------------------------
+
+  - name: payment_method
+    display: "Payment Methods"
+    domain: payment
+    description: Accepted payment methods (cards, PayPal, BNPL)
+    aliases: [payment_type, pay_method]
+    used_in_categories: [faqs]
+
+  - name: refund
+    display: "Refund"
+    domain: payment
+    description: Money returned to customer after return or cancellation
+    aliases: [refund_request, money_back]
+    used_in_categories: [policies, faqs]
+
+  - name: refund_timeline
+    display: "Refund Timeline"
+    domain: payment
+    description: How long refunds take to process and appear
+    aliases: [refund_time, refund_speed]
+    used_in_categories: [policies, faqs]
+
+  - name: payment_failure
+    display: "Payment Failure"
+    domain: payment
+    description: Declined cards, failed checkouts, payment errors
+    aliases: [card_declined, declined_payment, checkout_failed]
+    used_in_categories: [troubleshooting, faqs]
+
+  - name: double_charge
+    display: "Double Charge"
+    domain: payment
+    description: Customer charged twice, or pending + posted charge confusion
+    aliases: [charged_twice, duplicate_charge, pending_charge]
+    used_in_categories: [faqs, troubleshooting]
+
+  - name: bnpl
+    display: "Buy Now Pay Later"
+    domain: payment
+    description: Installment payment options (Klarna, Afterpay)
+    aliases: [klarna, afterpay, installments, buy_now_pay_later]
+    used_in_categories: [faqs]
+
+  - name: gift_card
+    display: "Gift Card"
+    domain: payment
+    description: VoltNest gift cards — purchase, redemption, balance
+    aliases: [giftcard, gift_voucher]
+    used_in_categories: [faqs]
+
+  - name: promo_code
+    display: "Promo Code"
+    domain: payment
+    description: Discount codes, coupons, vouchers
+    aliases: [coupon, discount_code, voucher, promo]
+    used_in_categories: [faqs]
+
+  - name: sales_tax
+    display: "Sales Tax"
+    domain: payment
+    description: Sales tax, VAT, GST charged on orders
+    aliases: [tax, vat, gst]
+    used_in_categories: [policies]
+
+  - name: currency
+    display: "Currency"
+    domain: payment
+    description: USD pricing, foreign transaction fees, conversion
+    aliases: [usd, currency_conversion, exchange_rate]
+    used_in_categories: [faqs, policies]
+
+  # ---------------------------------------------------------------------------
+  # PRODUCT DOMAIN
+  # ---------------------------------------------------------------------------
+
+  - name: wireless_earbuds
+    display: "Wireless Earbuds"
+    domain: product
+    description: VoltBuds Pro product information
+    aliases: [voltb_uds, earbuds, voltbuds_pro]
+    used_in_categories: [products, troubleshooting, glossary]
+
+  - name: bluetooth_speaker
+    display: "Bluetooth Speaker"
+    domain: product
+    description: VoltBoom product information
+    aliases: [voltboom, speaker]
+    used_in_categories: [products, troubleshooting, glossary]
+
+  - name: wall_charger
+    display: "Wall Charger"
+    domain: product
+    description: VoltCharge 65W charger
+    aliases: [voltcharge, charger, usb_c_charger, gan_charger]
+    used_in_categories: [products, troubleshooting, glossary]
+
+  - name: power_bank
+    display: "Power Bank"
+    domain: product
+    description: VoltBank 20K power bank
+    aliases: [voltbank, battery_pack, portable_charger]
+    used_in_categories: [products, troubleshooting, glossary]
+
+  - name: phone_case
+    display: "Phone Case"
+    domain: product
+    description: VoltShield phone case
+    aliases: [voltshield, case, phone_cover]
+    used_in_categories: [products, glossary]
+
+  - name: smartwatch_band
+    display: "Smartwatch Band"
+    domain: product
+    description: VoltFit smartwatch band
+    aliases: [voltfit, watch_band, strap]
+    used_in_categories: [products, glossary]
+
+  - name: battery_life
+    display: "Battery Life"
+    domain: product
+    description: Battery duration and charging information
+    aliases: [battery, playback_time, runtime, charge_time]
+    used_in_categories: [products]
+
+  - name: waterproof
+    display: "Waterproof / Water Resistant"
+    domain: product
+    description: Water resistance ratings (IPX5, IP67, IP6X)
+    aliases: [water_resistant, ipx5, ip67, ip6x, water_proof]
+    used_in_categories: [products, glossary]
+
+  - name: bluetooth
+    display: "Bluetooth"
+    domain: product
+    description: Bluetooth version, pairing, connectivity
+    aliases: [bt, bluetooth_5_3, pairing]
+    used_in_categories: [products, troubleshooting, glossary]
+
+  - name: audio_quality
+    display: "Audio Quality"
+    domain: product
+    description: Sound quality, distortion, static, audio issues
+    aliases: [sound, audio_issue, distortion, static]
+    used_in_categories: [troubleshooting, glossary]
+
+  - name: charging
+    display: "Charging"
+    domain: product
+    description: Charging behavior, charging issues, cable requirements
+    aliases: [charge, not_charging, charging_issue]
+    used_in_categories: [troubleshooting, glossary]
+
+  - name: product_spec
+    display: "Product Specification"
+    domain: product
+    description: Technical specifications (dimensions, weight, output)
+    aliases: [specs, specification, dimensions]
+    used_in_categories: [products, glossary]
+
+  - name: compatibility
+    display: "Compatibility"
+    domain: product
+    description: Which devices work with each product
+    aliases: [compatible, device_support]
+    used_in_categories: [products]
+
+  # ---------------------------------------------------------------------------
+  # ACCOUNT DOMAIN
+  # ---------------------------------------------------------------------------
+
+  - name: account_creation
+    display: "Account Creation"
+    domain: account
+    description: Creating a new VoltNest account
+    aliases: [signup, register, new_account]
+    used_in_categories: [account, faqs]
+
+  - name: password_reset
+    display: "Password Reset"
+    domain: account
+    description: Forgot password, reset link, changing password
+    aliases: [forgot_password, reset_password, change_password]
+    used_in_categories: [account, troubleshooting, faqs]
+
+  - name: two_factor_auth
+    display: "Two-Factor Authentication"
+    domain: account
+    description: 2FA setup, backup codes, troubleshooting
+    aliases: [2fa, mfa, two_factor, authenticator]
+    used_in_categories: [account, troubleshooting, faqs]
+
+  - name: account_deletion
+    display: "Account Deletion"
+    domain: account
+    description: Deleting a VoltNest account
+    aliases: [delete_account, close_account, remove_account]
+    used_in_categories: [account, faqs]
+
+  - name: account_settings
+    display: "Account Settings"
+    domain: account
+    description: Managing account preferences, addresses, payment methods
+    aliases: [settings, preferences, profile]
+    used_in_categories: [account]
+
+  - name: login_issue
+    display: "Login Issue"
+    domain: account
+    description: Can't log in, invalid credentials, account locked
+    aliases: [cant_login, login_problem]
+    used_in_categories: [troubleshooting, faqs]
+
+  - name: account_security
+    display: "Account Security"
+    domain: account
+    description: Account compromise, suspicious activity, security alerts
+    aliases: [compromise, hacked, security_incident]
+    used_in_categories: [troubleshooting, escalation]
+
+  - name: email_change
+    display: "Email Change"
+    domain: account
+    description: Changing the email on an account
+    aliases: [change_email, update_email]
+    used_in_categories: [account]
+
+  # ---------------------------------------------------------------------------
+  # POLICY DOMAIN
+  # ---------------------------------------------------------------------------
+
+  - name: return_policy
+    display: "Return Policy"
+    domain: policy
+    description: 30-day return window, eligibility, non-returnable items
+    aliases: [returns, return_window, return_eligibility]
+    used_in_categories: [policies, faqs]
+
+  - name: warranty_policy
+    display: "Warranty Policy"
+    domain: policy
+    description: 12-month warranty coverage, claims, exclusions
+    aliases: [warranty, coverage, warranty_claim]
+    used_in_categories: [policies, products]
+
+  - name: cancellation_policy
+    display: "Cancellation Policy"
+    domain: policy
+    description: Order cancellation rules and windows
+    aliases: [cancel_policy, cancellation_rules]
+    used_in_categories: [policies]
+
+  - name: price_match_policy
+    display: "Price Match Policy"
+    domain: policy
+    description: Price matching rules for competitor prices
+    aliases: [price_match, price_guarantee]
+    used_in_categories: [policies]
+
+  - name: privacy_policy
+    display: "Privacy Policy"
+    domain: policy
+    description: Data collection, retention, user rights
+    aliases: [privacy, data_policy, gdpr, ccpa]
+    used_in_categories: [policies]
+
+  - name: terms_of_service
+    display: "Terms of Service"
+    domain: policy
+    description: Legal terms, account rules, arbitration
+    aliases: [tos, terms, terms_and_conditions]
+    used_in_categories: [policies]
+
+  - name: data_retention
+    display: "Data Retention"
+    domain: policy
+    description: How long VoltNest keeps different types of data
+    aliases: [retention, data_retention_period]
+    used_in_categories: [policies]
+
+  - name: return_shipping_cost
+    display: "Return Shipping Cost"
+    domain: policy
+    description: Who pays for return shipping and how much
+    aliases: [return_fee, return_label]
+    used_in_categories: [policies]
+
+  - name: restocking_fee
+    display: "Restocking Fee"
+    domain: policy
+    description: Fees for refused or rejected returns
+    aliases: [rejection_fee]
+    used_in_categories: [policies]
+
+  # ---------------------------------------------------------------------------
+  # SUPPORT DOMAIN
+  # ---------------------------------------------------------------------------
+
+  - name: troubleshooting
+    display: "Troubleshooting"
+    domain: support
+    description: Diagnostic guides for technical problems
+    aliases: [diagnose, fix_issue, debug]
+    used_in_categories: [troubleshooting]
+
+  - name: escalation
+    display: "Escalation"
+    domain: support
+    description: When and how to escalate to a human agent
+    aliases: [hand_off, human_agent, escalate]
+    used_in_categories: [escalation]
+
+  - name: sensitive_legal
+    display: "Sensitive — Legal"
+    domain: support
+    description: Legal threats, lawyer mentions, regulatory inquiries
+    aliases: [legal, lawyer, sue, subpoena]
+    used_in_categories: [escalation]
+
+  - name: sensitive_safety
+    display: "Sensitive — Safety"
+    domain: support
+    description: Product safety incidents, injuries, self-harm
+    aliases: [safety, injury, fire, harm]
+    used_in_categories: [escalation]
+
+  - name: contact_info
+    display: "Contact Information"
+    domain: support
+    description: How to reach VoltNest support
+    aliases: [contact, phone, email, chat]
+    used_in_categories: [company]
+
+  - name: support_hours
+    display: "Support Hours"
+    domain: support
+    description: When support is available
+    aliases: [hours, availability, schedule]
+    used_in_categories: [company]
+
+  # ---------------------------------------------------------------------------
+  # COMPANY DOMAIN
+  # ---------------------------------------------------------------------------
+
+  - name: company_info
+    display: "Company Information"
+    domain: company
+    description: About VoltNest, founding, mission
+    aliases: [about, mission, values]
+    used_in_categories: [company]
+
+  - name: loyalty_program
+    display: "Loyalty Program"
+    domain: company
+    description: VoltNest Rewards program
+    aliases: [rewards, points, loyalty, tiers]
+    used_in_categories: [faqs, company]
+
+  - name: referral_program
+    display: "Referral Program"
+    domain: company
+    description: Refer-a-friend program
+    aliases: [refer, refer_friend, referral]
+    used_in_categories: [faqs]
+
+  # ---------------------------------------------------------------------------
+  # TECH DOMAIN
+  # ---------------------------------------------------------------------------
+
+  - name: glossary_term
+    display: "Glossary Term"
+    domain: tech
+    description: A technical or business term with a definition
+    aliases: [definition, term]
+    used_in_categories: [glossary]
+
+  - name: product_term
+    display: "Product Term"
+    domain: tech
+    description: Technical terms related to products (IP ratings, codecs, etc.)
+    aliases: [product_jargon]
+    used_in_categories: [glossary]
+
+  - name: shipping_term
+    display: "Shipping Term"
+    domain: tech
+    description: Terms related to shipping (tracking, RTS, DDU, etc.)
+    aliases: [logistics_term]
+    used_in_categories: [glossary]
+
+  - name: payment_term
+    display: "Payment Term"
+    domain: tech
+    description: Terms related to payments (chargeback, token, auth, etc.)
+    aliases: [billing_term]
+    used_in_categories: [glossary]
+
+# =============================================================================
+# TAG INDEX (reverse lookup)
+# =============================================================================
+# Maps aliases to canonical tag names. Built automatically at ingestion.
+
+alias_index:
+  # Example — generated from all aliases above
+  # Note: This section is included for documentation. In production, it would
+  # be generated programmatically from the tags list above.
+  
+  coupon: promo_code
+  discount_code: promo_code
+  voucher: promo_code
+  promo: promo_code
+  
+  klarna: bnpl
+  afterpay: bnpl
+  installments: bnpl
+  
+  track: shipment_tracking
+  tracking: shipment_tracking
+  
+  cancel_order: order_cancellation
+  cancel: order_cancellation
+  
+  refund_request: refund
+  money_back: refund
+  
+  forgot_password: password_reset
+  reset_password: password_reset
+  change_password: password_reset
+  
+  two_factor: two_factor_auth
+  2fa: two_factor_auth
+  mfa: two_factor_auth
+  authenticator: two_factor_auth
+  
+  # ... (all other aliases mapped at ingestion time)
+
+# =============================================================================
+# TAG VALIDATION RULES
+# =============================================================================
+
+validation:
+  rules:
+    - name: max_tags_per_chunk
+      value: 8
+      description: No chunk should have more than 8 tags (avoid over-tagging)
+    
+    - name: min_tags_per_chunk
+      value: 2
+      description: No chunk should have fewer than 2 tags (avoid under-tagging)
+    
+    - name: canonical_form
+      description: All tags must be lowercase with underscores. No spaces, no hyphens.
+    
+    - name: no_synonyms
+      description: Never create a tag that duplicates an existing tag's meaning. Use aliases.
+    
+    - name: category_consistency
+      description: A tag must be used by at least one document in a category that lists it in `used_in_categories`.
+    
+    - name: alias_uniqueness
+      description: An alias can only map to one canonical tag.
+
+# =============================================================================
+# TAG STATISTICS
+# =============================================================================
+
+statistics:
+  total_tags: 65
+  total_aliases: 210
+  tags_by_domain:
+    order: 12
+    payment: 10
+    product: 13
+    account: 8
+    policy: 9
+    support: 6
+    company: 3
+    tech: 4
+  most_common_tags:
+    - return_policy
+    - refund
+    - warranty_policy
+    - shipment_tracking
+    - bluetooth
+
+# =============================================================================
+# GOVERNANCE
+# =============================================================================
+
+governance:
+  # Who can add or modify tags
+  owner: knowledge_team
+  approvers:
+    - kb-owners@voltnest.com
+    - taxonomy-owners@voltnest.com
+  
+  # Process for adding new tags
+  add_tag_process:
+    - step: 1
+      action: Submit request to taxonomy-owners@voltnest.com
+      required_info: [proposed_tag_name, domain, description, example_usage]
+    - step: 2
+      action: Review for duplicates against existing tags and aliases
+    - step: 3
+      action: Add to this file, bump version
+    - step: 4
+      action: Re-ingest KB to apply new tag
+    - step: 5
+      action: Update alias_index
+  
+  # Review cadence
+  review_cycle_days: 90
+  next_review_due: "2026-04-15"
+  
+  # Deprecation process
+  deprecation:
+    - step: 1
+      action: Mark tag as deprecated (add `deprecated: true`)
+    - step: 2
+      action: Provide `deprecated_in_favor_of: <new_tag>`
+    - step: 3
+      action: Wait 1 review cycle
+    - step: 4
+      action: Remove tag and re-ingest
+  
+  change_log:
+    - date: "2026-01-15"
+      version: "1.0.0"
+      changes: "Initial tag taxonomy with 65 tags across 8 domains"
+
+# =============================================================================
+# USAGE EXAMPLES
+# =============================================================================
+# These examples show how tags are applied during ingestion.
+
+usage_examples:
+
+  - document: "data/kb/policies/return_refund_policy.md"
+    tags: [return_policy, refund, refund_timeline, return_shipping_cost, restocking_fee]
+
+  - document: "data/kb/products/wireless_earbuds.md"
+    tags: [wireless_earbuds, battery_life, waterproof, bluetooth, audio_quality, warranty_policy]
+
+  - document: "data/kb/troubleshooting/bluetooth_pairing.md"
+    tags: [bluetooth, wireless_earbuds, bluetooth_speaker, troubleshooting]
+
+  - document: "data/kb/order_management/track_shipment_guide.md"
+    tags: [shipment_tracking, carrier, order_status, delivery_time]
+
+  - document: "data/kb/account/reset_password.md"
+    tags: [password_reset, login_issue, account_security]
+
+  - document: "data/kb/escalation/sensitive_topics.md"
+    tags: [escalation, sensitive_legal, sensitive_safety, account_security]
+
+# =============================================================================
+# QUERY-TAG MAPPING
+# =============================================================================
+# When a user query matches certain patterns, prioritize these tags.
+
+query_tag_patterns:
+
+  - pattern: "waterproof|water resistant|can I swim|shower"
+    tags: [waterproof]
+
+  - pattern: "battery|charge|playback time"
+    tags: [battery_life, charging]
+
+  - pattern: "pair|bluetooth|connect"
+    tags: [bluetooth]
+
+  - pattern: "return|refund"
+    tags: [return_policy, refund, refund_timeline]
+
+  - pattern: "cancel"
+    tags: [order_cancellation, cancellation_policy]
+
+  - pattern: "track|where is my order|shipment"
+    tags: [shipment_tracking, order_status]
+
+  - pattern: "warranty|broken|defective"
+    tags: [warranty_policy]
+
+  - pattern: "price match|cheaper|competitor"
+    tags: [price_match_policy]
+
+  - pattern: "2fa|authenticator|two factor"
+    tags: [two_factor_auth]
+
+  - pattern: "password|login|sign in"
+    tags: [password_reset, login_issue]
+
+  - pattern: "gift card|gift certificate"
+    tags: [gift_card]
+
+  - pattern: "coupon|promo|discount"
+    tags: [promo_code]
+
+  - pattern: "customs|duty|vat|import"
+    tags: [customs]
+
+  - pattern: "return shipping|who pays"
+    tags: [return_shipping_cost, return_policy]

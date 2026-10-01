@@ -1,0 +1,509 @@
+# VoltNest Support Intents
+# Version: 1.0.0
+# Last updated: 2026-01-15
+#
+# This file defines the intent taxonomy used by the VoltNest AI agent.
+# Every incoming user message is classified into exactly ONE of these
+# intents, which determines how it's routed.
+#
+# Rules:
+#   - Every message MUST be classified into exactly one intent
+#   - If unsure, use `general` — never invent a new intent
+#   - `out_of_scope` is a valid intent for off-topic requests
+#   - `escalation` overrides all others (see priority below)
+
+version: "1.0.0"
+schema_version: 1
+
+# =============================================================================
+# PRIORITY OVERRIDES
+# =============================================================================
+# These intents bypass normal classification. If any of these phrases are
+# detected, route to the intent regardless of other signals.
+
+priority_overrides:
+  - phrase: "talk to a human"
+    intent: escalation
+  - phrase: "speak to a human"
+    intent: escalation
+  - phrase: "real person"
+    intent: escalation
+  - phrase: "agent"
+    intent: escalation
+  - phrase: "supervisor"
+    intent: escalation
+  - phrase: "manager"
+    intent: escalation
+  - phrase: "lawyer"
+    intent: sensitive_legal
+  - phrase: "attorney"
+    intent: sensitive_legal
+  - phrase: "sue"
+    intent: sensitive_legal
+  - phrase: "subpoena"
+    intent: sensitive_legal
+  - phrase: "self-harm"
+    intent: sensitive_safety
+  - phrase: "hurt myself"
+    intent: sensitive_safety
+  - phrase: "product caught fire"
+    intent: sensitive_safety
+  - phrase: "battery swelling"
+    intent: sensitive_safety
+  - phrase: "delete my account"
+    intent: account_help
+
+# =============================================================================
+# INTENTS
+# =============================================================================
+
+intents:
+
+  # ---------------------------------------------------------------------------
+  # ORDER-RELATED INTENTS
+  # ---------------------------------------------------------------------------
+
+  - name: order_status
+    description: Customer asking about the progress, location, or delivery of an existing order
+    examples:
+      - "Where is my order?"
+      - "Has my order shipped yet?"
+      - "When will my package arrive?"
+      - "Track my order please"
+      - "What's the status of ORD-100001?"
+    routes_to: order_agent
+    requires_order_id: true
+    kb_sources:
+      - order_management/order_status_guide.md
+      - order_management/track_shipment_guide.md
+    tools_available:
+      - lookup_order
+      - lookup_shipment
+    priority: normal
+    escalation_risk: low
+
+  - name: cancel_order
+    description: Customer wants to cancel an order before delivery
+    examples:
+      - "I want to cancel my order"
+      - "Can I cancel ORD-100002?"
+      - "Cancel my order please"
+      - "I changed my mind — please cancel"
+    routes_to: order_agent
+    requires_order_id: true
+    kb_sources:
+      - order_management/cancel_order_guide.md
+      - policies/cancellation_policy.md
+    tools_available:
+      - lookup_order
+      - cancel_order
+    priority: normal
+    escalation_risk: low
+
+  - name: modify_order
+    description: Customer wants to change something about a placed order (address, items, shipping)
+    examples:
+      - "Can I change my shipping address?"
+      - "Add an item to my order"
+      - "I need to change the shipping method"
+      - "Can I update the gift message?"
+    routes_to: order_agent
+    requires_order_id: true
+    kb_sources:
+      - order_management/modify_order_guide.md
+    tools_available:
+      - lookup_order
+      - modify_order
+    priority: normal
+    escalation_risk: medium
+
+  - name: delivery_issue
+    description: Customer reporting a delivery problem — missing, delayed, damaged, or misdelivered package
+    examples:
+      - "My package hasn't arrived"
+      - "Tracking shows delivered but I don't have it"
+      - "My package is damaged"
+      - "The tracking hasn't updated in a week"
+    routes_to: order_agent
+    requires_order_id: true
+    kb_sources:
+      - order_management/delivery_issues.md
+      - policies/shipping_policy.md
+    tools_available:
+      - lookup_order
+      - lookup_shipment
+    priority: high
+    escalation_risk: high
+
+  # ---------------------------------------------------------------------------
+  # PRODUCT INTENTS
+  # ---------------------------------------------------------------------------
+
+  - name: product_question
+    description: Customer asking about a product's specs, features, compatibility, or availability
+    examples:
+      - "Does the VoltBuds Pro have ANC?"
+      - "Is the VoltBank waterproof?"
+      - "What's the battery life on the VoltBoom?"
+      - "Is the VoltCharge 65W in stock?"
+      - "Can the VoltShield fit an iPhone 16 Pro Max?"
+    routes_to: rag_agent
+    requires_order_id: false
+    kb_sources:
+      - products/wireless_earbuds.md
+      - products/bluetooth_speaker.md
+      - products/usb_c_charger.md
+      - products/power_bank.md
+      - products/phone_case.md
+      - products/smartwatch_band.md
+    tools_available:
+      - lookup_product
+    priority: normal
+    escalation_risk: low
+
+  - name: warranty_question
+    description: Customer asking about warranty coverage, claims, or eligibility
+    examples:
+      - "What's the warranty on the VoltBuds?"
+      - "How do I file a warranty claim?"
+      - "Is my product still under warranty?"
+      - "My VoltBoom stopped working — is it covered?"
+    routes_to: rag_agent
+    requires_order_id: false
+    kb_sources:
+      - policies/warranty_policy.md
+    tools_available:
+      - lookup_order
+      - check_warranty
+    priority: normal
+    escalation_risk: medium
+
+  # ---------------------------------------------------------------------------
+  # SUPPORT & TROUBLESHOOTING INTENTS
+  # ---------------------------------------------------------------------------
+
+  - name: tech_support
+    description: Customer reporting a technical problem with a VoltNest product that needs troubleshooting
+    examples:
+      - "My earbuds won't pair with my phone"
+      - "The speaker has static"
+      - "My charger isn't charging my laptop"
+      - "The app keeps crashing"
+      - "Only one earbud is playing sound"
+    routes_to: tech_agent
+    requires_order_id: false
+    kb_sources:
+      - troubleshooting/bluetooth_pairing.md
+      - troubleshooting/device_not_charging.md
+      - troubleshooting/audio_quality_issues.md
+      - troubleshooting/app_not_loading.md
+      - troubleshooting/login_issues.md
+    tools_available:
+      - lookup_product
+      - lookup_order
+    priority: normal
+    escalation_risk: medium
+
+  # ---------------------------------------------------------------------------
+  # PAYMENT INTENTS
+  # ---------------------------------------------------------------------------
+
+  - name: payment_question
+    description: Customer asking about payment methods, refunds timing, installments, or billing
+    examples:
+      - "What payment methods do you accept?"
+      - "How long does a refund take?"
+      - "Can I use Klarna for a $40 order?"
+      - "Why was I charged twice?"
+      - "Can I change my payment method?"
+    routes_to: billing_agent
+    requires_order_id: false
+    kb_sources:
+      - faqs/payment_faq.md
+      - faqs/promo_giftcard_faq.md
+      - policies/return_refund_policy.md
+    tools_available:
+      - lookup_order
+      - lookup_payment
+    priority: high
+    escalation_risk: high
+
+  - name: payment_issue
+    description: Customer reporting a specific payment failure — declined card, failed checkout, missing refund
+    examples:
+      - "My card was declined"
+      - "I was charged twice — refund me"
+      - "I paid but my order didn't go through"
+      - "My refund never arrived"
+      - "The checkout keeps failing"
+    routes_to: billing_agent
+    requires_order_id: false
+    kb_sources:
+      - troubleshooting/payment_failures.md
+      - faqs/payment_faq.md
+    tools_available:
+      - lookup_order
+      - lookup_payment
+    priority: high
+    escalation_risk: critical
+
+  # ---------------------------------------------------------------------------
+  # ACCOUNT INTENTS
+  # ---------------------------------------------------------------------------
+
+  - name: account_help
+    description: Customer asking about account operations — login, password, 2FA, profile, deletion
+    examples:
+      - "How do I reset my password?"
+      - "I can't log in to my account"
+      - "How do I enable 2FA?"
+      - "Delete my account"
+      - "How do I change my email address?"
+    routes_to: account_agent
+    requires_order_id: false
+    kb_sources:
+      - account/create_account.md
+      - account/reset_password.md
+      - account/enable_2fa.md
+      - account/delete_account.md
+      - account/manage_account_settings.md
+      - faqs/account_faq.md
+      - troubleshooting/login_issues.md
+    tools_available:
+      - lookup_user
+    priority: high
+    escalation_risk: high
+
+  # ---------------------------------------------------------------------------
+  # POLICY & GENERAL INTENTS
+  # ---------------------------------------------------------------------------
+
+  - name: policy_question
+    description: Customer asking about a specific policy — returns, shipping, privacy, terms, price match
+    examples:
+      - "What's your return policy?"
+      - "How much is shipping to Canada?"
+      - "Do you price match?"
+      - "Can I return earbuds after 45 days?"
+      - "What's your privacy policy?"
+    routes_to: rag_agent
+    requires_order_id: false
+    kb_sources:
+      - policies/shipping_policy.md
+      - policies/return_refund_policy.md
+      - policies/warranty_policy.md
+      - policies/cancellation_policy.md
+      - policies/price_match_policy.md
+      - policies/privacy_policy.md
+      - policies/terms_of_service.md
+    tools_available: []
+    priority: normal
+    escalation_risk: low
+
+  - name: general
+    description: General questions that don't fit other categories — greetings, small talk, meta questions
+    examples:
+      - "Hi there!"
+      - "What's your mission?"
+      - "What are your support hours?"
+      - "Do you have a loyalty program?"
+      - "Thanks for your help!"
+    routes_to: general_agent
+    requires_order_id: false
+    kb_sources:
+      - company/about.md
+      - company/contact.md
+      - company/support_hours.md
+      - company/mission_values.md
+      - company/faq_meta.md
+      - faqs/general_faq.md
+      - faqs/loyalty_faq.md
+    tools_available: []
+    priority: low
+    escalation_risk: low
+
+  # ---------------------------------------------------------------------------
+  # ESCALATION INTENTS
+  # ---------------------------------------------------------------------------
+
+  - name: escalation
+    description: Customer explicitly requesting a human, or signaling strong emotion that requires handoff
+    examples:
+      - "Talk to a human"
+      - "I want to speak to a supervisor"
+      - "This is ridiculous — get me a manager"
+      - "You're not helping — I need a real person"
+    routes_to: human_handoff
+    requires_order_id: false
+    kb_sources:
+      - escalation/escalation_criteria.md
+      - escalation/escalation_playbook.md
+    tools_available:
+      - create_ticket
+    priority: critical
+    escalation_risk: critical
+
+  # ---------------------------------------------------------------------------
+  # SENSITIVE INTENTS (Special Handling Required)
+  # ---------------------------------------------------------------------------
+
+  - name: sensitive_legal
+    description: Customer mentions legal action, a lawyer, a regulator, or a subpoena — requires legal-aware handling
+    examples:
+      - "I'm going to sue"
+      - "My lawyer will contact you"
+      - "I'm filing a complaint with the FTC"
+      - "You'll hear from my attorney"
+    routes_to: sensitive_handler
+    requires_order_id: false
+    kb_sources:
+      - escalation/sensitive_topics.md
+    tools_available:
+      - create_urgent_ticket
+    priority: critical
+    escalation_risk: critical
+    internal_only: true
+
+  - name: sensitive_safety
+    description: Customer reports a safety incident — injury, fire, smoke, battery swelling, or self-harm
+    examples:
+      - "My charger caught fire"
+      - "The battery is swelling"
+      - "My earbuds got really hot and burned me"
+      - "I've been having thoughts of self-harm"
+    routes_to: sensitive_handler
+    requires_order_id: false
+    kb_sources:
+      - escalation/sensitive_topics.md
+    tools_available:
+      - create_urgent_ticket
+    priority: critical
+    escalation_risk: critical
+    internal_only: true
+
+  # ---------------------------------------------------------------------------
+  # OUT-OF-SCOPE INTENT
+  # ---------------------------------------------------------------------------
+
+  - name: out_of_scope
+    description: Customer asks about something unrelated to VoltNest — trivia, coding help, medical advice, etc.
+    examples:
+      - "Who won the World Cup?"
+      - "Write me a Python script"
+      - "Should I take ibuprofen?"
+      - "What's the weather?"
+      - "Tell me a joke"
+    routes_to: decline_handler
+    requires_order_id: false
+    kb_sources: []
+    tools_available: []
+    priority: low
+    escalation_risk: none
+    policy: |
+      Politely decline and redirect to VoltNest topics.
+      Do NOT attempt to answer the question.
+      Do NOT explain why the request is out of scope.
+      For sensitive cases (medical, legal, financial), suggest the user
+      consult a professional.
+
+# =============================================================================
+# ROUTING TABLE
+# =============================================================================
+# Mapping of routes_to values to actual LangGraph nodes.
+# Referenced by src/graph/nodes/triage.py
+
+routes:
+  order_agent:
+    node: order_specialist
+    tier: 1
+    handles: [order_status, cancel_order, modify_order, delivery_issue]
+
+  rag_agent:
+    node: rag_specialist
+    tier: 1
+    handles: [product_question, warranty_question, policy_question]
+
+  tech_agent:
+    node: tech_specialist
+    tier: 1
+    handles: [tech_support]
+
+  billing_agent:
+    node: billing_specialist
+    tier: 1
+    handles: [payment_question, payment_issue]
+
+  account_agent:
+    node: account_specialist
+    tier: 1
+    handles: [account_help]
+
+  general_agent:
+    node: general_specialist
+    tier: 1
+    handles: [general]
+
+  human_handoff:
+    node: human_escalation
+    tier: 2
+    handles: [escalation]
+
+  sensitive_handler:
+    node: sensitive_escalation
+    tier: 2
+    handles: [sensitive_legal, sensitive_safety]
+
+  decline_handler:
+    node: scope_decline
+    tier: 1
+    handles: [out_of_scope]
+
+# =============================================================================
+# FALLBACK BEHAVIOR
+# =============================================================================
+# If the classifier is uncertain, apply these rules.
+
+fallback:
+  ambiguous_confidence_threshold: 0.6
+  default_intent: general
+  on_multi_intent: split_and_handle_sequentially
+  on_no_match: general
+  on_error: escalation
+
+# =============================================================================
+# METADATA
+# =============================================================================
+
+metadata:
+  total_intents: 15
+  public_intents:
+    - order_status
+    - cancel_order
+    - modify_order
+    - delivery_issue
+    - product_question
+    - warranty_question
+    - tech_support
+    - payment_question
+    - payment_issue
+    - account_help
+    - policy_question
+    - general
+    - escalation
+    - out_of_scope
+  internal_intents:
+    - sensitive_legal
+    - sensitive_safety
+  categories:
+    - order_management
+    - product
+    - support
+    - payment
+    - account
+    - policy
+    - general
+    - escalation
+    - sensitive
+    - out_of_scope
+  maintained_by: support_team
+  review_cycle_days: 90

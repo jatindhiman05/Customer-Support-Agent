@@ -1,0 +1,212 @@
+[
+  {
+    "id": "h001",
+    "question": "What is VoltNest's return window?",
+    "expected_source": "return_refund_policy.md",
+    "expected_category": "policies",
+    "difficulty": "easy"
+  },
+  {
+    "id": "h002",
+    "question": "Does the VoltShield phone case work with a Samsung Galaxy S24?",
+    "expected_source": "phone_case.md",
+    "expected_category": "products",
+    "difficulty": "easy"
+  },
+  {
+    "id": "h003",
+    "question": "I keep getting an 'invalid credentials' error when logging in",
+    "expected_source": "login_issues.md",
+    "expected_category": "troubleshooting",
+    "difficulty": "medium"
+  },
+  {
+    "id": "h004",
+    "question": "Does VoltNest accept Klarna for installment payments?",
+    "expected_source": "payment_faq.md",
+    "expected_category": "faqs",
+    "difficulty": "easy"
+  },
+  {
+    "id": "h005",
+    "question": "What are the shipping rates for international orders?",
+    "expected_source": "shipping_policy.md",
+    "expected_category": "policies",
+    "difficulty": "medium"
+  },
+  {
+    "id": "h006",
+    "question": "How do I file a warranty claim for a defective product?",
+    "expected_source": "warranty_policy.md",
+    "expected_category": "policies",
+    "difficulty": "medium"
+  },
+  {
+    "id": "h007",
+    "question": "How many saved payment methods can I have on my account?",
+    "expected_source": "manage_account_settings.md",
+    "expected_category": "account",
+    "difficulty": "medium"
+  },
+  {
+    "id": "h008",
+    "question": "What are the tiers in the VoltNest Rewards program?",
+    "expected_source": "loyalty_faq.md",
+    "expected_category": "faqs",
+    "difficulty": "medium"
+  },
+  {
+    "id": "h009",
+    "question": "What is VoltNest's shipping cost to Canada specifically?",
+    "expected_source": "shipping_policy.md",
+    "expected_category": "policies",
+    "difficulty": "easy"
+  },
+  {
+    "id": "h010",
+    "question": "What should I do if my package is marked delivered but I never received it?",
+    "expected_source": "delivery_issues.md",
+    "expected_category": "order_management",
+    "difficulty": "medium"
+  },
+  {
+    "id": "h011",
+    "question": "What is the cancellation cutoff time on the day I place an order?",
+    "expected_source": "cancellation_policy.md",
+    "expected_category": "policies",
+    "difficulty": "medium"
+  },
+  {
+    "id": "h012",
+    "question": "The battery on my VoltBank drains much faster than it used to — is this covered?",
+    "expected_source": "warranty_policy.md",
+    "expected_category": "policies",
+    "difficulty": "medium"
+  },
+  {
+    "id": "h013",
+    "question": "How long is the VoltNest product warranty?",
+    "expected_source": "warranty_policy.md",
+    "expected_category": "policies",
+    "difficulty": "easy"
+  },
+  {
+    "id": "h014",
+    "question": "I forgot my password — how do I reset it?",
+    "expected_source": "reset_password.md",
+    "expected_category": "account",
+    "difficulty": "easy"
+  },
+  {
+    "id": "h015",
+    "question": "How do I unsubscribe from VoltNest marketing emails?",
+    "expected_source": "account_faq.md",
+    "expected_category": "faqs",
+    "difficulty": "easy"
+  },
+  {
+    "id": "h016",
+    "question": "My VoltBuds disconnect from my phone every few minutes",
+    "expected_source": "bluetooth_pairing.md",
+    "expected_category": "troubleshooting",
+    "difficulty": "medium"
+  },
+  {
+    "id": "h017",
+    "question": "What comes in the box with the VoltBank 20K?",
+    "expected_source": "power_bank.md",
+    "expected_category": "products",
+    "difficulty": "easy"
+  },
+  {
+    "id": "h018",
+    "question": "What is VoltNest's support email address?",
+    "expected_source": "contact.md",
+    "expected_category": "company",
+    "difficulty": "easy"
+  },
+  {
+    "id": "h019",
+    "question": "Can I return an item if the original packaging is damaged?",
+    "expected_source": "return_refund_policy.md",
+    "expected_category": "policies",
+    "difficulty": "medium"
+  },
+  {
+    "id": "h020",
+    "question": "Do I have to pay customs duties on international orders?",
+    "expected_source": "international_faq.md",
+    "expected_category": "faqs",
+    "difficulty": "medium"
+  },
+  {
+    "id": "h021",
+    "question": "Does the VoltCharge 65W support MacBook Pro?",
+    "expected_source": "usb_c_charger.md",
+    "expected_category": "products",
+    "difficulty": "easy"
+  },
+  {
+    "id": "h022",
+    "question": "The VoltNest app keeps crashing on launch on my iPhone",
+    "expected_source": "app_not_loading.md",
+    "expected_category": "troubleshooting",
+    "difficulty": "medium"
+  },
+  {
+    "id": "h023",
+    "question": "What time of day do you stop processing orders for same-day shipping?",
+    "expected_source": "shipping_policy.md",
+    "expected_category": "policies",
+    "difficulty": "medium"
+  },
+  {
+    "id": "h024",
+    "question": "Can I stack two promo codes in one order?",
+    "expected_source": "promo_giftcard_faq.md",
+    "expected_category": "faqs",
+    "difficulty": "easy"
+  },
+  {
+    "id": "h025",
+    "question": "My VoltBuds are only playing sound out of the right earbud",
+    "expected_source": "audio_quality_issues.md",
+    "expected_category": "troubleshooting",
+    "difficulty": "medium"
+  },
+  {
+    "id": "h026",
+    "question": "Who pays for return shipping if I change my mind?",
+    "expected_source": "return_refund_policy.md",
+    "expected_category": "policies",
+    "difficulty": "medium"
+  },
+  {
+    "id": "h027",
+    "question": "How do I change the email address on my VoltNest account?",
+    "expected_source": "manage_account_settings.md",
+    "expected_category": "account",
+    "difficulty": "medium"
+  },
+  {
+    "id": "h028",
+    "question": "Can I add a gift message to an order I've already placed?",
+    "expected_source": "modify_order_guide.md",
+    "expected_category": "order_management",
+    "difficulty": "medium"
+  },
+  {
+    "id": "h029",
+    "question": "Can I have my order shipped to a PO box?",
+    "expected_source": "shipping_policy.md",
+    "expected_category": "policies",
+    "difficulty": "medium"
+  },
+  {
+    "id": "h030",
+    "question": "What sizes does the VoltFit smartwatch band come in?",
+    "expected_source": "smartwatch_band.md",
+    "expected_category": "products",
+    "difficulty": "easy"
+  }
+]

@@ -1,0 +1,543 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://voltnest.com/schemas/order.schema.json",
+  "title": "Order",
+  "description": "Schema for a VoltNest order record. Every entry in data/mock_data/orders.json must conform to this schema. Used by the order lookup tool and validated at ingestion time.",
+
+  "type": "object",
+
+  "required": [
+    "order_id",
+    "user_id",
+    "user_email",
+    "status",
+    "items",
+    "subtotal",
+    "shipping_cost",
+    "tax",
+    "discount",
+    "total",
+    "currency",
+    "payment_method",
+    "shipping_address",
+    "shipping_method",
+    "tracking_number",
+    "carrier",
+    "created_at",
+    "shipped_at",
+    "delivered_at",
+    "cancelled_at",
+    "refunded_at",
+    "notes"
+  ],
+
+  "properties": {
+
+    "order_id": {
+      "type": "string",
+      "description": "Unique order identifier. Format: ORD-XXXXXX where X is a digit.",
+      "pattern": "^ORD-[0-9]{6}$",
+      "examples": ["ORD-100001", "ORD-100002", "ORD-100015"]
+    },
+
+    "user_id": {
+      "type": "string",
+      "description": "Reference to the user who placed the order. Must match a user_id in users.json.",
+      "pattern": "^U-[0-9]{4}$",
+      "examples": ["U-5001", "U-5002", "U-5007"]
+    },
+
+    "user_email": {
+      "type": "string",
+      "description": "Email address of the user at the time of order. Denormalized for convenience — must match the email in users.json for the same user_id.",
+      "format": "email",
+      "minLength": 5,
+      "maxLength": 254
+    },
+
+    "status": {
+      "type": "string",
+      "description": "Current order status. Determines which fields are required (see conditional rules below).",
+      "enum": [
+        "processing",
+        "shipped",
+        "in_transit",
+        "delivered",
+        "cancelled",
+        "refunded"
+      ]
+    },
+
+    "items": {
+      "type": "array",
+      "description": "Line items in this order. Must contain at least one item. Each item references a real SKU from products.json.",
+      "minItems": 1,
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "required": ["sku", "name", "quantity", "unit_price"],
+        "properties": {
+          "sku": {
+            "type": "string",
+            "description": "Product SKU. Must match a SKU in products.json.",
+            "pattern": "^[A-Z0-9]{2,5}-[0-9]{4}-[A-Z0-9]{2,4}$"
+          },
+          "name": {
+            "type": "string",
+            "description": "Product name at time of purchase (denormalized — may differ from current products.json if renamed).",
+            "minLength": 3,
+            "maxLength": 100
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "Number of this item ordered.",
+            "minimum": 1,
+            "maximum": 99
+          },
+          "unit_price": {
+            "type": "number",
+            "description": "Price per unit in USD at time of purchase. Must match products.json price_usd for the same SKU.",
+            "minimum": 0.01,
+            "maximum": 999.99,
+            "multipleOf": 0.01
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+
+    "subtotal": {
+      "type": "number",
+      "description": "Sum of (unit_price × quantity) for all items. Does not include shipping, tax, or discounts. Must match computed value.",
+      "minimum": 0.01,
+      "maximum": 99999.99,
+      "multipleOf": 0.01
+    },
+
+    "shipping_cost": {
+      "type": "number",
+      "description": "Shipping cost charged for this order. 0.00 for free shipping (US orders over $35 or cancelled orders).",
+      "minimum": 0,
+      "maximum": 999.99,
+      "multipleOf": 0.01
+    },
+
+    "tax": {
+      "type": "number",
+      "description": "Sales tax charged. 0.00 for international orders (customs/VAT is paid separately at delivery).",
+      "minimum": 0,
+      "maximum": 9999.99,
+      "multipleOf": 0.01
+    },
+
+    "discount": {
+      "type": "number",
+      "description": "Total discount applied (from promo codes or loyalty points). 0.00 if no discount.",
+      "minimum": 0,
+      "maximum": 9999.99,
+      "multipleOf": 0.01
+    },
+
+    "total": {
+      "type": "number",
+      "description": "Final order total. Must equal (subtotal + shipping_cost + tax − discount), rounded to 2 decimals.",
+      "minimum": 0.01,
+      "maximum": 99999.99,
+      "multipleOf": 0.01
+    },
+
+    "currency": {
+      "type": "string",
+      "description": "Currency for all monetary values. VoltNest always charges USD.",
+      "const": "USD"
+    },
+
+    "payment_method": {
+      "type": "string",
+      "description": "Payment method used. Card methods include the last 4 digits. Other methods are the platform name.",
+      "pattern": "^(visa|mastercard|amex|discover)_ending_[0-9]{4}$|^(paypal|klarna|afterpay|apple_pay|google_pay)$",
+      "examples": [
+        "visa_ending_4242",
+        "amex_ending_1005",
+        "paypal",
+        "klarna",
+        "apple_pay"
+      ]
+    },
+
+    "shipping_address": {
+      "type": "object",
+      "description": "Address the order ships to.",
+      "required": ["name", "line1", "line2", "city", "state", "postal_code", "country"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "line1": {
+          "type": "string",
+          "description": "Street address.",
+          "minLength": 3,
+          "maxLength": 200
+        },
+        "line2": {
+          "type": ["string", "null"],
+          "description": "Apt/Suite/Unit. Null if not applicable.",
+          "maxLength": 100
+        },
+        "city": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "state": {
+          "type": "string",
+          "description": "State, province, or region code.",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "postal_code": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 20
+        },
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code.",
+          "pattern": "^[A-Z]{2}$"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "shipping_method": {
+      "type": "string",
+      "description": "Shipping method selected at checkout.",
+      "enum": ["standard", "express", "overnight", "international"]
+    },
+
+    "tracking_number": {
+      "type": ["string", "null"],
+      "description": "Carrier tracking number. Null for orders not yet shipped or cancelled.",
+      "minLength": 8,
+      "maxLength": 40
+    },
+
+    "carrier": {
+      "type": ["string", "null"],
+      "description": "Shipping carrier. Null when tracking_number is null.",
+      "enum": ["UPS", "USPS", "FedEx", "DHL", null]
+    },
+
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 timestamp when the order was placed.",
+      "format": "date-time"
+    },
+
+    "shipped_at": {
+      "type": ["string", "null"],
+      "description": "ISO 8601 timestamp when the order was handed to the carrier. Null if not yet shipped.",
+      "format": "date-time"
+    },
+
+    "delivered_at": {
+      "type": ["string", "null"],
+      "description": "ISO 8601 timestamp when the order was delivered. Null if not yet delivered.",
+      "format": "date-time"
+    },
+
+    "cancelled_at": {
+      "type": ["string", "null"],
+      "description": "ISO 8601 timestamp when the order was cancelled. Null if not cancelled.",
+      "format": "date-time"
+    },
+
+    "refunded_at": {
+      "type": ["string", "null"],
+      "description": "ISO 8601 timestamp when the refund was issued. Null if not refunded.",
+      "format": "date-time"
+    },
+
+    "notes": {
+      "type": ["string", "null"],
+      "description": "Internal notes about this order. Null when no notes exist.",
+      "maxLength": 1000
+    }
+  },
+
+  "additionalProperties": false,
+
+  "allOf": [
+
+    {
+      "description": "Order total must equal subtotal + shipping_cost + tax − discount (within 1 cent)",
+      "type": "object"
+    },
+
+    {
+      "description": "If status is 'processing': must have no shipped_at, delivered_at, tracking_number, or carrier",
+      "if": {
+        "properties": { "status": { "const": "processing" } }
+      },
+      "then": {
+        "properties": {
+          "shipped_at": { "type": "null" },
+          "delivered_at": { "type": "null" },
+          "tracking_number": { "type": "null" },
+          "carrier": { "type": "null" },
+          "cancelled_at": { "type": "null" },
+          "refunded_at": { "type": "null" }
+        }
+      }
+    },
+
+    {
+      "description": "If status is 'shipped' or 'in_transit': must have shipped_at, tracking_number, carrier; must NOT have delivered_at, cancelled_at, refunded_at",
+      "if": {
+        "properties": {
+          "status": { "enum": ["shipped", "in_transit"] }
+        }
+      },
+      "then": {
+        "properties": {
+          "shipped_at": { "type": "string", "format": "date-time" },
+          "tracking_number": { "type": "string", "minLength": 8 },
+          "carrier": { "enum": ["UPS", "USPS", "FedEx", "DHL"] },
+          "delivered_at": { "type": "null" },
+          "cancelled_at": { "type": "null" },
+          "refunded_at": { "type": "null" }
+        }
+      }
+    },
+
+    {
+      "description": "If status is 'delivered': must have shipped_at, delivered_at, tracking_number, carrier; must NOT have cancelled_at",
+      "if": {
+        "properties": { "status": { "const": "delivered" } }
+      },
+      "then": {
+        "properties": {
+          "shipped_at": { "type": "string", "format": "date-time" },
+          "delivered_at": { "type": "string", "format": "date-time" },
+          "tracking_number": { "type": "string", "minLength": 8 },
+          "carrier": { "enum": ["UPS", "USPS", "FedEx", "DHL"] },
+          "cancelled_at": { "type": "null" }
+        }
+      }
+    },
+
+    {
+      "description": "If status is 'cancelled': must have cancelled_at; must NOT have shipped_at or delivered_at",
+      "if": {
+        "properties": { "status": { "const": "cancelled" } }
+      },
+      "then": {
+        "properties": {
+          "cancelled_at": { "type": "string", "format": "date-time" },
+          "shipped_at": { "type": "null" },
+          "delivered_at": { "type": "null" },
+          "tracking_number": { "type": "null" },
+          "carrier": { "type": "null" }
+        }
+      }
+    },
+
+    {
+      "description": "If status is 'refunded': must have both delivered_at and refunded_at; must NOT have cancelled_at",
+      "if": {
+        "properties": { "status": { "const": "refunded" } }
+      },
+      "then": {
+        "properties": {
+          "delivered_at": { "type": "string", "format": "date-time" },
+          "refunded_at": { "type": "string", "format": "date-time" },
+          "shipped_at": { "type": "string", "format": "date-time" },
+          "cancelled_at": { "type": "null" }
+        }
+      }
+    },
+
+    {
+      "description": "tracking_number and carrier must both be null or both non-null",
+      "if": {
+        "properties": { "tracking_number": { "type": "null" } }
+      },
+      "then": {
+        "properties": { "carrier": { "type": "null" } }
+      }
+    },
+
+    {
+      "description": "tracking_number and carrier must both be null or both non-null (reverse direction)",
+      "if": {
+        "properties": { "tracking_number": { "type": "string" } }
+      },
+      "then": {
+        "properties": { "carrier": { "enum": ["UPS", "USPS", "FedEx", "DHL"] } }
+      }
+    },
+
+    {
+      "description": "International orders must have 0 tax (customs/VAT paid separately) and shipping_method = 'international'",
+      "if": {
+        "properties": {
+          "shipping_address": {
+            "properties": { "country": { "not": { "const": "US" } } }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "shipping_method": { "const": "international" },
+          "tax": { "const": 0 }
+        }
+      }
+    },
+
+    {
+      "description": "Discount cannot exceed subtotal",
+      "if": {
+        "properties": { "discount": { "minimum": 0.01 } }
+      },
+      "then": {
+        "properties": {
+          "subtotal": { "type": "number" }
+        }
+      }
+    }
+  ],
+
+  "examples": [
+    {
+      "order_id": "ORD-100001",
+      "user_id": "U-5001",
+      "user_email": "jane.doe@example.com",
+      "status": "delivered",
+      "items": [
+        {
+          "sku": "VBP-2024-BLK",
+          "name": "VoltBuds Pro Wireless Earbuds",
+          "quantity": 1,
+          "unit_price": 79.99
+        },
+        {
+          "sku": "VSC-2024-CLR",
+          "name": "VoltShield Phone Case",
+          "quantity": 1,
+          "unit_price": 24.99
+        }
+      ],
+      "subtotal": 104.98,
+      "shipping_cost": 0.00,
+      "tax": 8.66,
+      "discount": 0.00,
+      "total": 113.64,
+      "currency": "USD",
+      "payment_method": "visa_ending_4242",
+      "shipping_address": {
+        "name": "Jane Doe",
+        "line1": "1400 Rio Grande St",
+        "line2": "Apt 305",
+        "city": "Austin",
+        "state": "TX",
+        "postal_code": "78701",
+        "country": "US"
+      },
+      "shipping_method": "standard",
+      "tracking_number": "1Z999AA10123456784",
+      "carrier": "UPS",
+      "created_at": "2026-01-05T14:30:00Z",
+      "shipped_at": "2026-01-06T09:15:00Z",
+      "delivered_at": "2026-01-10T11:02:00Z",
+      "cancelled_at": null,
+      "refunded_at": null,
+      "notes": null
+    },
+    {
+      "order_id": "ORD-100008",
+      "user_id": "U-5002",
+      "user_email": "marcus.rodriguez@example.com",
+      "status": "cancelled",
+      "items": [
+        {
+          "sku": "VB20-BLK",
+          "name": "VoltBank 20K Power Bank",
+          "quantity": 1,
+          "unit_price": 49.99
+        }
+      ],
+      "subtotal": 49.99,
+      "shipping_cost": 0.00,
+      "tax": 4.12,
+      "discount": 0.00,
+      "total": 54.11,
+      "currency": "USD",
+      "payment_method": "paypal",
+      "shipping_address": {
+        "name": "Marcus Rodriguez",
+        "line1": "4821 Lakeshore Dr",
+        "line2": null,
+        "city": "Chicago",
+        "state": "IL",
+        "postal_code": "60615",
+        "country": "US"
+      },
+      "shipping_method": "standard",
+      "tracking_number": null,
+      "carrier": null,
+      "created_at": "2026-01-11T20:15:00Z",
+      "shipped_at": null,
+      "delivered_at": null,
+      "cancelled_at": "2026-01-11T20:45:00Z",
+      "refunded_at": "2026-01-12T09:00:00Z",
+      "notes": "Customer cancelled within 30 minutes — full refund issued"
+    },
+    {
+      "order_id": "ORD-100014",
+      "user_id": "U-5007",
+      "user_email": "kenji.tanaka@example.jp",
+      "status": "delivered",
+      "items": [
+        {
+          "sku": "VC65-WHT",
+          "name": "VoltCharge 65W USB-C Charger",
+          "quantity": 1,
+          "unit_price": 39.99
+        },
+        {
+          "sku": "VBP-2024-BLK",
+          "name": "VoltBuds Pro Wireless Earbuds",
+          "quantity": 1,
+          "unit_price": 79.99
+        }
+      ],
+      "subtotal": 119.98,
+      "shipping_cost": 24.99,
+      "tax": 0.00,
+      "discount": 20.00,
+      "total": 124.97,
+      "currency": "USD",
+      "payment_method": "visa_ending_3344",
+      "shipping_address": {
+        "name": "Kenji Tanaka",
+        "line1": "1-2-3 Shibuya",
+        "line2": "Shibuya-ku",
+        "city": "Tokyo",
+        "state": "Tokyo",
+        "postal_code": "150-0002",
+        "country": "JP"
+      },
+      "shipping_method": "international",
+      "tracking_number": "JD0002100212000004",
+      "carrier": "DHL",
+      "created_at": "2025-12-10T07:45:00Z",
+      "shipped_at": "2025-12-11T09:15:00Z",
+      "delivered_at": "2025-12-22T15:30:00Z",
+      "cancelled_at": null,
+      "refunded_at": null,
+      "notes": "Applied loyalty redemption — 2,000 points ($20 off)"
+    }
+  ]
+}

@@ -1,0 +1,457 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://voltnest.com/schemas/product.schema.json",
+  "title": "Product",
+  "description": "Schema for a VoltNest product record. Every entry in data/mock_data/products.json must conform to this schema. Used by the product lookup tool and validated at ingestion time.",
+
+  "type": "object",
+
+  "required": [
+    "sku",
+    "name",
+    "short_name",
+    "category",
+    "subcategory",
+    "price_usd",
+    "currency",
+    "description",
+    "color",
+    "available_colors",
+    "in_stock",
+    "stock_quantity",
+    "weight_grams",
+    "dimensions_cm",
+    "shipping",
+    "warranty_months",
+    "return_window_days",
+    "rating",
+    "review_count",
+    "tags",
+    "related_skus",
+    "launch_date",
+    "last_updated"
+  ],
+
+  "properties": {
+
+    "sku": {
+      "type": "string",
+      "description": "Stock Keeping Unit. Unique identifier for this product. Format: 3-letter product code + year + color code (with hyphens).",
+      "pattern": "^[A-Z0-9]{2,5}-[0-9]{4}-[A-Z0-9]{2,4}$",
+      "examples": [
+        "VBP-2024-BLK",
+        "VBM-2024-BLK",
+        "VC65-WHT",
+        "VB20-BLK",
+        "VSC-2024-CLR",
+        "VFB-2024-BLK"
+      ]
+    },
+
+    "name": {
+      "type": "string",
+      "description": "Full product name as shown on the product page.",
+      "minLength": 5,
+      "maxLength": 100,
+      "examples": [
+        "VoltBuds Pro Wireless Earbuds",
+        "VoltBoom Bluetooth Speaker",
+        "VoltCharge 65W USB-C Charger"
+      ]
+    },
+
+    "short_name": {
+      "type": "string",
+      "description": "Friendly short name for natural language references. Used when the customer mentions the product by name (e.g., 'Where's my VoltBuds?').",
+      "minLength": 3,
+      "maxLength": 30,
+      "examples": [
+        "VoltBuds Pro",
+        "VoltBoom",
+        "VoltCharge 65W",
+        "VoltBank 20K",
+        "VoltShield",
+        "VoltFit"
+      ]
+    },
+
+    "category": {
+      "type": "string",
+      "description": "Product category. Matches the categories used in the KB products folder.",
+      "enum": [
+        "audio",
+        "power",
+        "protection",
+        "wearables"
+      ]
+    },
+
+    "subcategory": {
+      "type": "string",
+      "description": "More specific classification within the category.",
+      "enum": [
+        "earbuds",
+        "speaker",
+        "wall_charger",
+        "power_bank",
+        "phone_case",
+        "watch_band"
+      ]
+    },
+
+    "price_usd": {
+      "type": "number",
+      "description": "Current retail price in USD. Must match the price in the KB product page.",
+      "minimum": 0.01,
+      "maximum": 999.99,
+      "multipleOf": 0.01,
+      "examples": [79.99, 59.99, 39.99, 49.99, 24.99, 19.99]
+    },
+
+    "compare_at_price_usd": {
+      "type": ["number", "null"],
+      "description": "Original price before a sale. Null if the product is not on sale. Must be higher than price_usd when present.",
+      "minimum": 0.01,
+      "maximum": 999.99,
+      "multipleOf": 0.01,
+      "examples": [99.99, 74.99, 49.99, 59.99, null]
+    },
+
+    "currency": {
+      "type": "string",
+      "description": "Currency code for pricing. VoltNest always uses USD.",
+      "const": "USD"
+    },
+
+    "description": {
+      "type": "string",
+      "description": "Short product description (1–2 sentences) as shown on the product page.",
+      "minLength": 50,
+      "maxLength": 500
+    },
+
+    "color": {
+      "type": "string",
+      "description": "Default/main color variant for this SKU.",
+      "minLength": 3,
+      "maxLength": 50
+    },
+
+    "available_colors": {
+      "type": "array",
+      "description": "All color variants available for this product family.",
+      "items": {
+        "type": "string",
+        "minLength": 3,
+        "maxLength": 50
+      },
+      "minItems": 1,
+      "maxItems": 10,
+      "uniqueItems": true
+    },
+
+    "in_stock": {
+      "type": "boolean",
+      "description": "Whether this product is currently available for purchase."
+    },
+
+    "stock_quantity": {
+      "type": "integer",
+      "description": "Current inventory count at the Memphis distribution center. When in_stock is false, this should be 0.",
+      "minimum": 0,
+      "maximum": 100000
+    },
+
+    "weight_grams": {
+      "type": "integer",
+      "description": "Shipping weight in grams, including packaging.",
+      "minimum": 1,
+      "maximum": 50000
+    },
+
+    "dimensions_cm": {
+      "type": "object",
+      "description": "Product dimensions in centimeters (packaged).",
+      "required": ["length", "width", "height"],
+      "properties": {
+        "length": { "type": "number", "minimum": 0.1, "maximum": 200 },
+        "width":  { "type": "number", "minimum": 0.1, "maximum": 200 },
+        "height": { "type": "number", "minimum": 0.1, "maximum": 200 }
+      },
+      "additionalProperties": false
+    },
+
+    "shipping": {
+      "type": "object",
+      "description": "Shipping characteristics and restrictions. Determines which destinations the product can ship to.",
+      "required": [
+        "domestic_eligible",
+        "international_eligible",
+        "lithium_battery",
+        "battery_wh",
+        "restricted_regions"
+      ],
+      "properties": {
+
+        "domestic_eligible": {
+          "type": "boolean",
+          "description": "Whether this product can ship within the United States."
+        },
+
+        "international_eligible": {
+          "type": "boolean",
+          "description": "Whether this product can ship outside the United States. False for products with lithium batteries that exceed carrier limits."
+        },
+
+        "lithium_battery": {
+          "type": "boolean",
+          "description": "Whether this product contains a lithium-ion battery. Affects shipping and airline rules."
+        },
+
+        "battery_wh": {
+          "type": "number",
+          "description": "Total battery capacity in Watt-hours. Zero for products without batteries.",
+          "minimum": 0,
+          "maximum": 500
+        },
+
+        "restricted_regions": {
+          "type": "array",
+          "description": "Regions where this product cannot ship. Empty if no restrictions beyond international_eligible.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "international",
+              "alaska_hawaii",
+              "po_box",
+              "military"
+            ]
+          },
+          "uniqueItems": true
+        },
+
+        "restriction_reason": {
+          "type": "string",
+          "description": "Human-readable explanation of why the product is restricted, if any. Required when restricted_regions is non-empty.",
+          "minLength": 10,
+          "maxLength": 300
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "warranty_months": {
+      "type": "integer",
+      "description": "Length of the manufacturer's warranty in months. VoltNest standard is 12 months.",
+      "enum": [12],
+      "default": 12
+    },
+
+    "return_window_days": {
+      "type": "integer",
+      "description": "Number of days the customer can return this product. VoltNest standard is 30 days from delivery.",
+      "enum": [30],
+      "default": 30
+    },
+
+    "rating": {
+      "type": "number",
+      "description": "Average customer rating (0–5) rounded to one decimal.",
+      "minimum": 0,
+      "maximum": 5,
+      "multipleOf": 0.1
+    },
+
+    "review_count": {
+      "type": "integer",
+      "description": "Total number of customer reviews.",
+      "minimum": 0,
+      "maximum": 1000000
+    },
+
+    "tags": {
+      "type": "array",
+      "description": "Controlled vocabulary tags from data/taxonomy/tags.yaml. Used for retrieval filtering.",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "minItems": 2,
+      "maxItems": 10,
+      "uniqueItems": true
+    },
+
+    "related_skus": {
+      "type": "array",
+      "description": "Other product SKUs commonly purchased with this product or referenced in its KB page. Enables cross-sell and product graph.",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z0-9]{2,5}-[0-9]{4}-[A-Z0-9]{2,4}$"
+      },
+      "uniqueItems": true,
+      "maxItems": 5
+    },
+
+    "launch_date": {
+      "type": "string",
+      "description": "Date the product was first available for purchase. ISO 8601 date format.",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+
+    "last_updated": {
+      "type": "string",
+      "description": "Date the product record was last updated. ISO 8601 date format.",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    }
+  },
+
+  "additionalProperties": false,
+
+  "allOf": [
+    {
+      "description": "Sale price must be lower than the original compare_at_price",
+      "if": {
+        "required": ["compare_at_price_usd"],
+        "properties": {
+          "compare_at_price_usd": { "type": "number" }
+        }
+      },
+      "then": {
+        "properties": {
+          "price_usd": {
+            "description": "Sale price must be strictly less than compare_at_price"
+          }
+        }
+      }
+    },
+    {
+      "description": "Stock quantity must be 0 when in_stock is false",
+      "if": {
+        "properties": {
+          "in_stock": { "const": false }
+        }
+      },
+      "then": {
+        "properties": {
+          "stock_quantity": { "const": 0 }
+        }
+      }
+    },
+    {
+      "description": "restriction_reason required when restricted_regions is non-empty",
+      "if": {
+        "properties": {
+          "shipping": {
+            "properties": {
+              "restricted_regions": { "minItems": 1 }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "shipping": {
+            "required": ["restriction_reason"]
+          }
+        }
+      }
+    },
+    {
+      "description": "Products with lithium batteries must declare battery_wh > 0",
+      "if": {
+        "properties": {
+          "shipping": {
+            "properties": {
+              "lithium_battery": { "const": true }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "shipping": {
+            "properties": {
+              "battery_wh": { "exclusiveMinimum": 0 }
+            }
+          }
+        }
+      }
+    }
+  ],
+
+  "examples": [
+    {
+      "sku": "VBP-2024-BLK",
+      "name": "VoltBuds Pro Wireless Earbuds",
+      "short_name": "VoltBuds Pro",
+      "category": "audio",
+      "subcategory": "earbuds",
+      "price_usd": 79.99,
+      "compare_at_price_usd": 99.99,
+      "currency": "USD",
+      "description": "True-wireless earbuds with 8-hour battery, Bluetooth 5.3, and IPX5 water resistance. Dual-mic ENC for calls. Multipoint pairing with 2 devices.",
+      "color": "Midnight Black",
+      "available_colors": ["Midnight Black", "Arctic White", "Sage Green"],
+      "in_stock": true,
+      "stock_quantity": 342,
+      "weight_grams": 45,
+      "dimensions_cm": {
+        "length": 6.0,
+        "width": 5.0,
+        "height": 3.0
+      },
+      "shipping": {
+        "domestic_eligible": true,
+        "international_eligible": true,
+        "lithium_battery": true,
+        "battery_wh": 2.5,
+        "restricted_regions": []
+      },
+      "warranty_months": 12,
+      "return_window_days": 30,
+      "rating": 4.6,
+      "review_count": 2341,
+      "tags": ["wireless", "bluetooth", "water_resistant", "multipoint"],
+      "related_skus": ["VBM-2024-BLK", "VC65-WHT"],
+      "launch_date": "2020-08-15",
+      "last_updated": "2026-01-15"
+    },
+    {
+      "sku": "VB20-BLK",
+      "name": "VoltBank 20K Power Bank",
+      "short_name": "VoltBank 20K",
+      "category": "power",
+      "subcategory": "power_bank",
+      "price_usd": 49.99,
+      "compare_at_price_usd": 59.99,
+      "currency": "USD",
+      "description": "20,000 mAh power bank with 65W laptop-capable output and digital LED display. Recharges in 2 hours via 65W USB-C.",
+      "color": "Midnight Black",
+      "available_colors": ["Midnight Black"],
+      "in_stock": true,
+      "stock_quantity": 189,
+      "weight_grams": 420,
+      "dimensions_cm": {
+        "length": 15.5,
+        "width": 7.3,
+        "height": 2.5
+      },
+      "shipping": {
+        "domestic_eligible": true,
+        "international_eligible": false,
+        "lithium_battery": true,
+        "battery_wh": 74,
+        "restricted_regions": ["international"],
+        "restriction_reason": "Lithium battery exceeds international air transport limits for retail shipments"
+      },
+      "warranty_months": 12,
+      "return_window_days": 30,
+      "rating": 4.4,
+      "review_count": 1562,
+      "tags": ["power_bank", "laptop_charger", "usb_c", "travel", "flight_approved"],
+      "related_skus": ["VC65-WHT", "VBP-2024-BLK"],
+      "launch_date": "2022-09-15",
+      "last_updated": "2026-01-15"
+    }
+  ]
+}

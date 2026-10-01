@@ -1,0 +1,202 @@
+[
+  {
+    "id": "q001",
+    "question": "How long does standard shipping take?",
+    "ideal_answer": "Standard shipping takes 5–7 business days within the continental United States. It costs $4.99 and is free on orders over $35. Orders placed before 2:00 PM EST on a business day ship the same day.",
+    "must_cite": ["shipping_policy.md"],
+    "must_contain": ["5-7", "business days", "4.99", "35"],
+    "must_not_contain": ["2-3 days", "overnight", "free shipping on all"],
+    "max_words": 60,
+    "tone": "helpful"
+  },
+  {
+    "id": "q002",
+    "question": "Can I return earbuds after 45 days?",
+    "ideal_answer": "No — returns are only accepted within 30 calendar days of delivery. Since your return would be on day 45, it falls outside our return window and is not eligible for a refund. If you have an exceptional circumstance, contact support@voltnest.com and we'll evaluate on a case-by-case basis.",
+    "must_cite": ["return_refund_policy.md"],
+    "must_contain": ["no", "30 days", "delivery", "not eligible"],
+    "must_not_contain": ["yes", "45 days", "we can make an exception"],
+    "max_words": 80,
+    "tone": "firm but empathetic"
+  },
+  {
+    "id": "q003",
+    "question": "Does the VoltBuds Pro have active noise cancellation?",
+    "ideal_answer": "No. The VoltBuds Pro has passive noise isolation only, which reduces ambient noise through the ear tip seal but does not actively cancel sound. If you need active noise cancellation (ANC), we recommend waiting for the VoltBuds Pro+ (planned for 2026).",
+    "must_cite": ["wireless_earbuds.md"],
+    "must_contain": ["no", "passive", "noise isolation", "not ANC"],
+    "must_not_contain": ["yes", "has ANC", "active noise cancellation included"],
+    "max_words": 70,
+    "tone": "helpful"
+  },
+  {
+    "id": "q004",
+    "question": "What is the price of the VoltCharge 65W?",
+    "ideal_answer": "The VoltCharge 65W USB-C Charger is $39.99 USD. It's in stock and qualifies for free shipping on US orders over $35. It has a 12-month warranty and can be returned within 30 days.",
+    "must_cite": ["usb_c_charger.md"],
+    "must_contain": ["39.99"],
+    "must_not_contain": ["29.99", "49.99", "free", "discounted"],
+    "max_words": 50,
+    "tone": "helpful"
+  },
+  {
+    "id": "q005",
+    "question": "How do I track my order?",
+    "ideal_answer": "You can track your order three ways: (1) Click the tracking link in your shipping confirmation email, (2) log in to voltnest.com and go to Account → Orders, or (3) enter the tracking number directly on the carrier's website (UPS, USPS, FedEx, or DHL). Your tracking number is sent by email within 24 hours of your order shipping.",
+    "must_cite": ["track_shipment_guide.md"],
+    "must_contain": ["tracking number", "email", "Account"],
+    "must_not_contain": ["call us", "we'll update you"],
+    "max_words": 90,
+    "tone": "helpful"
+  },
+  {
+    "id": "q006",
+    "question": "What payment methods do you accept?",
+    "ideal_answer": "VoltNest accepts Visa, Mastercard, American Express, and Discover credit and debit cards, plus PayPal, Apple Pay, Google Pay, Klarna, and Afterpay. All payments are processed in USD by Stripe.",
+    "must_cite": ["payment_faq.md"],
+    "must_contain": ["Visa", "Mastercard", "PayPal", "Klarna"],
+    "must_not_contain": ["cash", "check", "wire transfer", "bitcoin"],
+    "max_words": 50,
+    "tone": "helpful"
+  },
+  {
+    "id": "q007",
+    "question": "How do I reset my password?",
+    "ideal_answer": "Go to voltnest.com/login and click 'Forgot password?'. Enter your account email and check your inbox — the reset link arrives within 5 minutes and is valid for 1 hour. If the email doesn't arrive, check your spam folder or contact support@voltnest.com.",
+    "must_cite": ["reset_password.md"],
+    "must_contain": ["Forgot password", "5 minutes", "1 hour"],
+    "must_not_contain": ["call support", "wait 24 hours"],
+    "max_words": 70,
+    "tone": "helpful"
+  },
+  {
+    "id": "q008",
+    "question": "Why was my card declined?",
+    "ideal_answer": "Card declines come from your bank, not from VoltNest. Common reasons include insufficient funds, billing address mismatch, incorrect CVV, expired card, or a fraud flag on the card. Try a different card, or contact your bank directly — only they can see the exact reason for the decline.",
+    "must_cite": ["payment_failures.md"],
+    "must_contain": ["bank", "billing address", "insufficient funds", "different card"],
+    "must_not_contain": ["we declined", "we blocked", "wait 24 hours"],
+    "max_words": 80,
+    "tone": "helpful"
+  },
+  {
+    "id": "q009",
+    "question": "Can I use a gift card with a promo code?",
+    "ideal_answer": "Yes. Gift cards and promo codes can be combined. The promo code is applied first to your subtotal, then the gift card balance covers the remaining amount. You can use up to 5 gift cards per order, but only 1 promo code.",
+    "must_cite": ["promo_giftcard_faq.md"],
+    "must_contain": ["yes", "gift card", "promo code", "combined"],
+    "must_not_contain": ["no", "cannot", "either or"],
+    "max_words": 70,
+    "tone": "helpful"
+  },
+  {
+    "id": "q010",
+    "question": "Do you ship to Germany?",
+    "ideal_answer": "Yes — VoltNest ships to Germany as part of our EU coverage. Delivery takes 10–14 business days and costs $19.99. Note that import duties and VAT (typically 19% for Germany) are the customer's responsibility and collected by German customs upon delivery.",
+    "must_cite": ["international_faq.md", "shipping_policy.md"],
+    "must_contain": ["yes", "10-14", "19.99", "customs"],
+    "must_not_contain": ["no", "we don't ship"],
+    "max_words": 70,
+    "tone": "helpful"
+  },
+  {
+    "id": "q011",
+    "question": "What is the warranty on the VoltBoom?",
+    "ideal_answer": "The VoltBoom carries a 12-month limited warranty against manufacturing defects, starting from the delivery date. This covers battery failures, Bluetooth issues, speaker driver failures, and charging port problems. It does not cover water damage beyond IP67, drops, or loss.",
+    "must_cite": ["warranty_policy.md", "bluetooth_speaker.md"],
+    "must_contain": ["12 months", "defects", "delivery date"],
+    "must_not_contain": ["24 months", "5 years", "no warranty"],
+    "max_words": 70,
+    "tone": "helpful"
+  },
+  {
+    "id": "q012",
+    "question": "How do I cancel my order?",
+    "ideal_answer": "You can self-cancel an order before it ships: log in, go to Account → Orders, click the order, and select 'Cancel Order'. This works until the order enters Packed status. Once shipped, cancellation is no longer possible — you'd need to refuse delivery or return the item. Refunds for cancellations before shipping are issued within 1 business day.",
+    "must_cite": ["cancel_order_guide.md"],
+    "must_contain": ["Account", "Cancel Order", "before", "shipped"],
+    "must_not_contain": ["always can cancel", "call us"],
+    "max_words": 100,
+    "tone": "helpful"
+  },
+  {
+    "id": "q013",
+    "question": "My VoltBuds aren't pairing with my phone",
+    "ideal_answer": "Try this first: (1) Open your phone's Bluetooth settings, find VoltBuds Pro, and tap 'Forget This Device'. (2) Place both earbuds in the case, close the lid, and reopen it — this puts them in pairing mode (white flashing LED). (3) In Bluetooth, tap 'VoltBuds Pro' to pair. If that doesn't work, factory reset by holding the case button for 15 seconds. Full steps are in our Bluetooth pairing guide.",
+    "must_cite": ["bluetooth_pairing.md"],
+    "must_contain": ["forget", "reset", "case", "pairing mode"],
+    "must_not_contain": ["return it", "it's broken", "buy new"],
+    "max_words": 110,
+    "tone": "helpful"
+  },
+  {
+    "id": "q014",
+    "question": "What's your return policy?",
+    "ideal_answer": "You can return most items within 30 calendar days of delivery for a full refund. Items must be unused, in original packaging, and complete with all accessories. Refunds are issued to the original payment method within 5–7 business days after we receive and inspect the return. Customer-paid return shipping is $6.99 in the US (free if the return is our error).",
+    "must_cite": ["return_refund_policy.md"],
+    "must_contain": ["30 days", "delivery", "original packaging", "5-7"],
+    "must_not_contain": ["14 days", "60 days", "no returns"],
+    "max_words": 100,
+    "tone": "helpful"
+  },
+  {
+    "id": "q015",
+    "question": "Does the VoltBank 20K ship internationally?",
+    "ideal_answer": "No — the VoltBank 20K cannot be shipped internationally due to lithium battery regulations enforced by air carriers. It only ships to addresses within the United States (including Alaska, Hawaii, and US territories). At 74 Wh, it's under the airline carry-on limit, but air freight for retail shipments is restricted.",
+    "must_cite": ["power_bank.md", "shipping_policy.md"],
+    "must_contain": ["no", "lithium", "United States only", "74 Wh"],
+    "must_not_contain": ["yes", "we can ship it"],
+    "max_words": 90,
+    "tone": "helpful"
+  },
+  {
+    "id": "q016",
+    "question": "How many points do I earn per dollar?",
+    "ideal_answer": "You earn 10 points per $1 spent on the product subtotal (excluding shipping and taxes). Points are worth $1 per 100 points, so every $10 spent earns you $1 in future discounts. Gold tier members earn 15 points per $1, and Platinum members earn 20 points per $1.",
+    "must_cite": ["loyalty_faq.md"],
+    "must_contain": ["10", "per dollar", "100 points"],
+    "must_not_contain": ["1 point", "5 points", "no points"],
+    "max_words": 70,
+    "tone": "helpful"
+  },
+  {
+    "id": "q017",
+    "question": "I want to talk to a human",
+    "ideal_answer": "Of course — I'll connect you with a human agent right away. Type 'agent' or 'human' at any time in chat, or email support@voltnest.com. Human agents respond within 24 hours for standard issues, or within 4 business hours for urgent ones (mark your subject 'URGENT'). Live chat and phone support are available Monday–Friday 9 AM–8 PM EST and Saturday 10 AM–4 PM EST.",
+    "must_cite": ["contact.md", "escalation_criteria.md"],
+    "must_contain": ["human", "support@voltnest.com", "24 hours"],
+    "must_not_contain": ["I can't", "only email", "you don't need to"],
+    "max_words": 90,
+    "tone": "helpful"
+  },
+  {
+    "id": "q018",
+    "question": "The VoltCharge is not charging my laptop",
+    "ideal_answer": "The VoltCharge 65W can charge laptops that require up to 65W — like MacBook Air, MacBook Pro 13\" (Intel), Dell XPS 13, and HP Spectre. High-wattage laptops like MacBook Pro 16\" (96W+) or Dell XPS 15 (90W) will charge slowly and won't keep up under heavy load. Check that you're using a 100W-rated USB-C cable — standard 60W cables cap the output. Try a different USB-C port and make sure the charger's LED isn't blinking (indicating a fault).",
+    "must_cite": ["device_not_charging.md", "usb_c_charger.md"],
+    "must_contain": ["65W", "laptop", "100W cable", "MacBook"],
+    "must_not_contain": ["it's broken", "return it", "all laptops work"],
+    "max_words": 110,
+    "tone": "helpful"
+  },
+  {
+    "id": "q019",
+    "question": "What's the price match policy?",
+    "ideal_answer": "If you find a lower price on an identical VoltNest product from an approved competitor within 14 days of delivery, we'll refund the difference. Approved competitors are Amazon, Best Buy, Walmart, Target, B&H Photo, and Newegg — sold and shipped by them directly. Maximum refund is $50 per item. Submit a screenshot of the competitor's live page to support@voltnest.com with subject 'Price Match Request'.",
+    "must_cite": ["price_match_policy.md"],
+    "must_contain": ["14 days", "competitor", "approved", "50"],
+    "must_not_contain": ["30 days", "no price match", "unlimited"],
+    "max_words": 100,
+    "tone": "helpful"
+  },
+  {
+    "id": "q020",
+    "question": "How do I enable two-factor authentication?",
+    "ideal_answer": "Log in and go to Account → Security → Two-Factor Authentication. Choose 'Authenticator App' (recommended) or 'SMS'. For authenticator apps, scan the QR code with Google Authenticator, Authy, or 1Password, then enter the 6-digit code to verify. Save your 10 backup codes somewhere safe — you'll need them if you lose your phone. Backup codes are single-use, and we never ask for your 2FA code.",
+    "must_cite": ["enable_2fa.md"],
+    "must_contain": ["Account", "Security", "QR code", "backup codes"],
+    "must_not_contain": ["email us", "we'll send a code"],
+    "max_words": 110,
+    "tone": "helpful"
+  }
+]

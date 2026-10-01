@@ -1,0 +1,502 @@
+[
+  {
+    "id": "q001",
+    "question": "How long does standard shipping take?",
+    "expected_source": "shipping_policy.md",
+    "expected_category": "policies",
+    "expected_keywords": ["5-7", "business days"],
+    "intent": "shipping_query",
+    "difficulty": "easy",
+    "notes": "Basic shipping question — should be top-1"
+  },
+  {
+    "id": "q002",
+    "question": "Can I return earbuds after 45 days?",
+    "expected_source": "return_refund_policy.md",
+    "expected_category": "policies",
+    "expected_keywords": ["30 days", "not eligible"],
+    "intent": "refund_request",
+    "difficulty": "medium",
+    "notes": "Tests if AI correctly denies a policy violation"
+  },
+  {
+    "id": "q003",
+    "question": "Does the VoltBuds Pro have active noise cancellation?",
+    "expected_source": "wireless_earbuds.md",
+    "expected_category": "products",
+    "expected_keywords": ["no", "passive", "ANC"],
+    "intent": "product_question",
+    "difficulty": "medium",
+    "notes": "Explicit 'no' answer — tests hallucination resistance"
+  },
+  {
+    "id": "q004",
+    "question": "What is the price of the VoltCharge 65W?",
+    "expected_source": "usb_c_charger.md",
+    "expected_category": "products",
+    "expected_keywords": ["39.99"],
+    "intent": "product_question",
+    "difficulty": "easy",
+    "notes": "Direct price lookup"
+  },
+  {
+    "id": "q005",
+    "question": "How do I track my order?",
+    "expected_source": "track_shipment_guide.md",
+    "expected_category": "order_management",
+    "expected_keywords": ["tracking number", "email", "Account → Orders"],
+    "intent": "order_status",
+    "difficulty": "easy",
+    "notes": "Directs to tracking process"
+  },
+  {
+    "id": "q006",
+    "question": "What payment methods do you accept?",
+    "expected_source": "payment_faq.md",
+    "expected_category": "faqs",
+    "expected_keywords": ["Visa", "Mastercard", "PayPal", "Klarna"],
+    "intent": "payment_question",
+    "difficulty": "easy",
+    "notes": "Standard payment methods question"
+  },
+  {
+    "id": "q007",
+    "question": "How do I reset my password?",
+    "expected_source": "reset_password.md",
+    "expected_category": "account",
+    "expected_keywords": ["Forgot password", "reset link", "1 hour"],
+    "intent": "account_help",
+    "difficulty": "easy",
+    "notes": "Password reset flow"
+  },
+  {
+    "id": "q008",
+    "question": "Why was my card declined?",
+    "expected_source": "payment_failures.md",
+    "expected_category": "troubleshooting",
+    "expected_keywords": ["bank", "decline", "insufficient funds"],
+    "intent": "payment_issue",
+    "difficulty": "medium",
+    "notes": "Diagnostic question about card declines"
+  },
+  {
+    "id": "q009",
+    "question": "Can I use a gift card with a promo code?",
+    "expected_source": "promo_giftcard_faq.md",
+    "expected_category": "faqs",
+    "expected_keywords": ["yes", "gift card", "promo code"],
+    "intent": "promo_question",
+    "difficulty": "medium",
+    "notes": "Stacking rules — many users get this wrong"
+  },
+  {
+    "id": "q010",
+    "question": "Do you ship to Germany?",
+    "expected_source": "international_faq.md",
+    "expected_category": "faqs",
+    "expected_keywords": ["Germany", "EU", "10-14"],
+    "intent": "shipping_query",
+    "difficulty": "easy",
+    "notes": "International shipping coverage"
+  },
+  {
+    "id": "q011",
+    "question": "What is the warranty on the VoltBoom?",
+    "expected_source": "warranty_policy.md",
+    "expected_category": "policies",
+    "expected_keywords": ["12 months", "defects"],
+    "intent": "warranty_question",
+    "difficulty": "easy",
+    "notes": "Warranty period lookup"
+  },
+  {
+    "id": "q012",
+    "question": "How do I cancel my order?",
+    "expected_source": "cancel_order_guide.md",
+    "expected_category": "order_management",
+    "expected_keywords": ["before", "shipped", "Account → Orders"],
+    "intent": "cancel_order",
+    "difficulty": "easy",
+    "notes": "Cancellation process"
+  },
+  {
+    "id": "q013",
+    "question": "My VoltBuds aren't pairing with my phone",
+    "expected_source": "bluetooth_pairing.md",
+    "expected_category": "troubleshooting",
+    "expected_keywords": ["forget", "re-pair", "reset"],
+    "intent": "tech_support",
+    "difficulty": "medium",
+    "notes": "Bluetooth troubleshooting"
+  },
+  {
+    "id": "q014",
+    "question": "What's your return policy?",
+    "expected_source": "return_refund_policy.md",
+    "expected_category": "policies",
+    "expected_keywords": ["30 days", "delivery", "original packaging"],
+    "intent": "refund_request",
+    "difficulty": "easy",
+    "notes": "Return policy overview"
+  },
+  {
+    "id": "q015",
+    "question": "Does the VoltBank 20K ship internationally?",
+    "expected_source": "power_bank.md",
+    "expected_category": "products",
+    "expected_keywords": ["no", "lithium", "international"],
+    "intent": "product_question",
+    "difficulty": "medium",
+    "notes": "Tests awareness of shipping restrictions"
+  },
+  {
+    "id": "q016",
+    "question": "How many points do I earn per dollar?",
+    "expected_source": "loyalty_faq.md",
+    "expected_category": "faqs",
+    "expected_keywords": ["10", "points", "1"],
+    "intent": "loyalty_question",
+    "difficulty": "easy",
+    "notes": "Loyalty program earning rate"
+  },
+  {
+    "id": "q017",
+    "question": "I want to talk to a human",
+    "expected_source": "escalation_criteria.md",
+    "expected_category": "escalation",
+    "expected_keywords": ["escalate", "human", "Tier 1"],
+    "intent": "escalation",
+    "difficulty": "easy",
+    "notes": "Explicit escalation trigger"
+  },
+  {
+    "id": "q018",
+    "question": "The VoltCharge is not charging my laptop",
+    "expected_source": "device_not_charging.md",
+    "expected_category": "troubleshooting",
+    "expected_keywords": ["wattage", "65W", "laptop"],
+    "intent": "tech_support",
+    "difficulty": "medium",
+    "notes": "Charging diagnostic"
+  },
+  {
+    "id": "q019",
+    "question": "What's the price match policy?",
+    "expected_source": "price_match_policy.md",
+    "expected_category": "policies",
+    "expected_keywords": ["14 days", "competitor", "approved"],
+    "intent": "pricing_question",
+    "difficulty": "easy",
+    "notes": "Price match window"
+  },
+  {
+    "id": "q020",
+    "question": "How do I enable two-factor authentication?",
+    "expected_source": "enable_2fa.md",
+    "expected_category": "account",
+    "expected_keywords": ["Account", "Security", "authenticator"],
+    "intent": "account_help",
+    "difficulty": "easy",
+    "notes": "2FA setup"
+  },
+  {
+    "id": "q021",
+    "question": "What does IP67 mean?",
+    "expected_source": "product_terms.md",
+    "expected_category": "glossary",
+    "expected_keywords": ["water", "dust", "meter"],
+    "intent": "product_question",
+    "difficulty": "medium",
+    "notes": "Technical glossary lookup"
+  },
+  {
+    "id": "q022",
+    "question": "My order shows delivered but I didn't receive it",
+    "expected_source": "delivery_issues.md",
+    "expected_category": "order_management",
+    "expected_keywords": ["24 hours", "carrier", "check"],
+    "intent": "delivery_issue",
+    "difficulty": "medium",
+    "notes": "Delivery troubleshooting"
+  },
+  {
+    "id": "q023",
+    "question": "Can I change my shipping address after ordering?",
+    "expected_source": "modify_order_guide.md",
+    "expected_category": "order_management",
+    "expected_keywords": ["before", "shipped", "intercept"],
+    "intent": "order_modification",
+    "difficulty": "medium",
+    "notes": "Address change process"
+  },
+  {
+    "id": "q024",
+    "question": "What are your support hours?",
+    "expected_source": "support_hours.md",
+    "expected_category": "company",
+    "expected_keywords": ["Mon-Fri", "9 AM", "8 PM", "EST"],
+    "intent": "company_info",
+    "difficulty": "easy",
+    "notes": "Support hours lookup"
+  },
+  {
+    "id": "q025",
+    "question": "How do I delete my account?",
+    "expected_source": "delete_account.md",
+    "expected_category": "account",
+    "expected_keywords": ["privacy@voltnest.com", "30 days"],
+    "intent": "account_help",
+    "difficulty": "easy",
+    "notes": "Account deletion process"
+  },
+  {
+    "id": "q026",
+    "question": "What's the difference between warranty and returns?",
+    "expected_source": "warranty_policy.md",
+    "expected_category": "policies",
+    "expected_keywords": ["defect", "12 months", "30 days"],
+    "intent": "policy_question",
+    "difficulty": "medium",
+    "notes": "Conceptual distinction"
+  },
+  {
+    "id": "q027",
+    "question": "How do I check my gift card balance?",
+    "expected_source": "promo_giftcard_faq.md",
+    "expected_category": "faqs",
+    "expected_keywords": ["voltnest.com/gift-card-balance", "Account"],
+    "intent": "gift_card_question",
+    "difficulty": "easy",
+    "notes": "Gift card balance check"
+  },
+  {
+    "id": "q028",
+    "question": "My earbuds are only playing out of one side",
+    "expected_source": "audio_quality_issues.md",
+    "expected_category": "troubleshooting",
+    "expected_keywords": ["reset", "case", "both"],
+    "intent": "tech_support",
+    "difficulty": "medium",
+    "notes": "One-earbud troubleshooting"
+  },
+  {
+    "id": "q029",
+    "question": "What is the return shipping cost?",
+    "expected_source": "return_refund_policy.md",
+    "expected_category": "policies",
+    "expected_keywords": ["6.99", "customer"],
+    "intent": "refund_request",
+    "difficulty": "easy",
+    "notes": "Return shipping cost"
+  },
+  {
+    "id": "q030",
+    "question": "Can I use Klarna for a $40 order?",
+    "expected_source": "payment_faq.md",
+    "expected_category": "faqs",
+    "expected_keywords": ["50", "minimum"],
+    "intent": "payment_question",
+    "difficulty": "medium",
+    "notes": "Tests awareness of minimum order for BNPL"
+  },
+  {
+    "id": "q031",
+    "question": "How do I apply a promo code?",
+    "expected_source": "general_faq.md",
+    "expected_category": "faqs",
+    "expected_keywords": ["checkout", "Promo Code", "Apply"],
+    "intent": "promo_question",
+    "difficulty": "easy",
+    "notes": "Promo code application"
+  },
+  {
+    "id": "q032",
+    "question": "The app keeps crashing",
+    "expected_source": "app_not_loading.md",
+    "expected_category": "troubleshooting",
+    "expected_keywords": ["reinstall", "OS", "iOS", "Android"],
+    "intent": "tech_support",
+    "difficulty": "medium",
+    "notes": "App crash troubleshooting"
+  },
+  {
+    "id": "q033",
+    "question": "What is your phone number?",
+    "expected_source": "contact.md",
+    "expected_category": "company",
+    "expected_keywords": ["512", "555", "0142"],
+    "intent": "company_info",
+    "difficulty": "easy",
+    "notes": "Direct contact lookup"
+  },
+  {
+    "id": "q034",
+    "question": "Is the VoltBuds Pro waterproof?",
+    "expected_source": "wireless_earbuds.md",
+    "expected_category": "products",
+    "expected_keywords": ["IPX5", "splash", "not swimming"],
+    "intent": "product_question",
+    "difficulty": "medium",
+    "notes": "Tests IPX5 vs IP67 distinction"
+  },
+  {
+    "id": "q035",
+    "question": "How do I file a warranty claim?",
+    "expected_source": "warranty_policy.md",
+    "expected_category": "policies",
+    "expected_keywords": ["support@voltnest.com", "order ID", "photos"],
+    "intent": "warranty_question",
+    "difficulty": "easy",
+    "notes": "Warranty claim process"
+  },
+  {
+    "id": "q036",
+    "question": "What does 'In Transit' mean?",
+    "expected_source": "order_status_guide.md",
+    "expected_category": "order_management",
+    "expected_keywords": ["moving", "carrier", "network"],
+    "intent": "order_status",
+    "difficulty": "easy",
+    "notes": "Order status definition"
+  },
+  {
+    "id": "q037",
+    "question": "Can I change the email on my account?",
+    "expected_source": "manage_account_settings.md",
+    "expected_category": "account",
+    "expected_keywords": ["Account", "Settings", "verify", "both"],
+    "intent": "account_help",
+    "difficulty": "medium",
+    "notes": "Email change with verification"
+  },
+  {
+    "id": "q038",
+    "question": "How do I earn loyalty points?",
+    "expected_source": "loyalty_faq.md",
+    "expected_category": "faqs",
+    "expected_keywords": ["purchase", "review", "referral", "birthday"],
+    "intent": "loyalty_question",
+    "difficulty": "easy",
+    "notes": "Loyalty earning methods"
+  },
+  {
+    "id": "q039",
+    "question": "My VoltBoom speaker has static",
+    "expected_source": "audio_quality_issues.md",
+    "expected_category": "troubleshooting",
+    "expected_keywords": ["interference", "Wi-Fi", "distance"],
+    "intent": "tech_support",
+    "difficulty": "medium",
+    "notes": "Static/interference troubleshooting"
+  },
+  {
+    "id": "q040",
+    "question": "How long does a refund take?",
+    "expected_source": "return_refund_policy.md",
+    "expected_category": "policies",
+    "expected_keywords": ["5-7", "business days", "payment method"],
+    "intent": "refund_request",
+    "difficulty": "easy",
+    "notes": "Refund timeline"
+  },
+  {
+    "id": "q041",
+    "question": "What is the difference between canceling and returning?",
+    "expected_source": "cancellation_policy.md",
+    "expected_category": "policies",
+    "expected_keywords": ["before", "after", "shipping"],
+    "intent": "policy_question",
+    "difficulty": "medium",
+    "notes": "Conceptual distinction"
+  },
+  {
+    "id": "q042",
+    "question": "Do you offer student discounts?",
+    "expected_source": "general_faq.md",
+    "expected_category": "faqs",
+    "expected_keywords": ["no", "promo", "newsletter"],
+    "intent": "promo_question",
+    "difficulty": "hard",
+    "notes": "Out-of-scope-ish — tests refusal"
+  },
+  {
+    "id": "q043",
+    "question": "How do I download my order history?",
+    "expected_source": "manage_account_settings.md",
+    "expected_category": "account",
+    "expected_keywords": ["Account", "Orders", "Export"],
+    "intent": "account_help",
+    "difficulty": "medium",
+    "notes": "Order history export"
+  },
+  {
+    "id": "q044",
+    "question": "The tracking hasn't updated in 10 days",
+    "expected_source": "delivery_issues.md",
+    "expected_category": "order_management",
+    "expected_keywords": ["7 days", "international", "investigation"],
+    "intent": "delivery_issue",
+    "difficulty": "medium",
+    "notes": "Lost package threshold"
+  },
+  {
+    "id": "q045",
+    "question": "What is ENC?",
+    "expected_source": "product_terms.md",
+    "expected_category": "glossary",
+    "expected_keywords": ["Environmental", "Noise", "microphone"],
+    "intent": "product_question",
+    "difficulty": "medium",
+    "notes": "Technical glossary"
+  },
+  {
+    "id": "q046",
+    "question": "Can I get a refund for a gift card purchase?",
+    "expected_source": "promo_giftcard_faq.md",
+    "expected_category": "faqs",
+    "expected_keywords": ["no", "non-refundable"],
+    "intent": "gift_card_question",
+    "difficulty": "medium",
+    "notes": "Gift card refund rule"
+  },
+  {
+    "id": "q047",
+    "question": "How do I contact support?",
+    "expected_source": "contact.md",
+    "expected_category": "company",
+    "expected_keywords": ["support@voltnest.com", "chat", "phone"],
+    "intent": "company_info",
+    "difficulty": "easy",
+    "notes": "Contact methods"
+  },
+  {
+    "id": "q048",
+    "question": "My account was compromised",
+    "expected_source": "login_issues.md",
+    "expected_category": "troubleshooting",
+    "expected_keywords": ["password", "log out", "security"],
+    "intent": "security_issue",
+    "difficulty": "hard",
+    "notes": "Account security incident"
+  },
+  {
+    "id": "q049",
+    "question": "What is your mission?",
+    "expected_source": "mission_values.md",
+    "expected_category": "company",
+    "expected_keywords": ["accessible", "reliable", "customer"],
+    "intent": "company_info",
+    "difficulty": "easy",
+    "notes": "Company mission statement"
+  },
+  {
+    "id": "q050",
+    "question": "Is VoltBank 20K allowed on airplanes?",
+    "expected_source": "power_bank.md",
+    "expected_category": "products",
+    "expected_keywords": ["carry-on", "100 Wh", "not checked"],
+    "intent": "product_question",
+    "difficulty": "medium",
+    "notes": "Airline battery rules"
+  }
+]
